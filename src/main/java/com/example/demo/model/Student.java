@@ -1,11 +1,11 @@
-public class Student{
+public class User{
     private long id;
     private String name;
     private String email;
     private String password;
     private String role;
 
-    Student(long id,String name,String email,String password,String role){
+    User(long id,String name,String email,String password,String role){
         this.id=id;
         this.name=name;
         this.email=email;
@@ -13,5 +13,5 @@ public class Student{
         this.role=role;
     }
 
-    
+
 }
