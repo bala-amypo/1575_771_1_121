@@ -1,11 +1,11 @@
-public class User{
+class Student{
     private long id;
     private String name;
     private String email;
     private String password;
     private String role;
 
-    User(long id,String name,String email,String password,String role){
+    Student(long id,String name,String email,String password,String role){
         this.id=id;
         this.name=name;
         this.email=email;
