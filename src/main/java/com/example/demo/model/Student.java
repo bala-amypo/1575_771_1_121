@@ -15,5 +15,23 @@ public class Student{
         this.year=year;
     }
 
+    public long getId(){
+        return id;
+    }
 
+    public String getRollNumber(){
+        return rollNumber;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getDepartment(){
+        return department;
+    }
+
+    public Integer getYear(){
+        return year;
+    }
 }
