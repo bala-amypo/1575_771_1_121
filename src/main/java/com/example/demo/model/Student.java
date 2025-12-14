@@ -1,16 +1,18 @@
-class Student{
-    private long id;
-    private String name;
-    private String email;
-    private String password;
-    private String role;
+package com.example.demo.model;
 
-    Student(long id,String name,String email,String password,String role){
+public class Student{
+    private long id;
+    private String rollNumber;
+    private String name;
+    private String department;
+    private Integer year;
+
+    Student(long id,String rollNumber,String name,String department,Integer year){
         this.id=id;
+        this.rollNumber=rollNumber;
         this.name=name;
-        this.email=email;
-        this.password=password;
-        this.role=role;
+        this.department = department;
+        this.year=year;
     }
 
 
