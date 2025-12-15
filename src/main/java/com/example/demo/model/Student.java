@@ -7,8 +7,11 @@ public class Student{
     private String department;
     private Integer year;
 
-    Student(long id,String rollNumber,String name,String department,Integer year){
-        this.id=id;
+    public Student(long id,String rollNumber,String name,String department,Integer year){
+       
+    }
+
+    public Student(String rollNumber,String name,String department,Integer year){
         this.rollNumber=rollNumber;
         this.name=name;
         this.department = department;
