@@ -7,7 +7,7 @@ public class Student{
     private String department;
     private Integer year;
 
-    public Student(long id,String rollNumber,String name,String department,Integer year){
+    public Student(){
        
     }
 
