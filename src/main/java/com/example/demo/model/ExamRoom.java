@@ -3,11 +3,11 @@ package com.example.demo.model;
 public class ExamRoom{
     private long id;
     private String roomNumber;
-    private String name;
+    private int capa
     private String department;
     private int year;
     public ExamRoom(){
-        
+
     }
     public ExamRoom(String roomNumber, String name, String department, int year) {
         this.roomNumber = roomNumber;

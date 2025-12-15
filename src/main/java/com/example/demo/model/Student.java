@@ -37,4 +37,25 @@ public class Student{
     public Integer getYear(){
         return year;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setRollNumber(String rollNumber) {
+        this.rollNumber = rollNumber;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
 }
