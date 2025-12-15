@@ -1,2 +1,6 @@
+package com.example.demo.service;
 
-public class User
+
+public class UserService{
+    
+}
