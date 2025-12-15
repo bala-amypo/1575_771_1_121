@@ -3,17 +3,17 @@ package com.example.demo.model;
 public class ExamRoom{
     private long id;
     private String roomNumber;
-    private int capa
-    private String department;
-    private int year;
+    private int capacity;
+    private int rows;
+    private int columns;
     public ExamRoom(){
 
     }
     public ExamRoom(String roomNumber, String name, String department, int year) {
         this.roomNumber = roomNumber;
-        this.name = name;
-        this.department = department;
-        this.year = year;
+        this.capacity = capacity;
+        this.rows = rows;
+        this.columns = columns;
     }
     public long getId() {
         return id;
@@ -27,24 +27,25 @@ public class ExamRoom{
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
-    public String getName() {
-        return name;
+    public int getCapacity() {
+        return capacity;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
-    public String getDepartment() {
-        return department;
+    public int getRows() {
+        return rows;
     }
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setRows(int rows) {
+        this.rows = rows;
     }
-    public int getYear() {
-        return year;
+    public int getColumns() {
+        return columns;
     }
-    public void setYear(int year) {
-        this.year = year;
+    public void setColumns(int columns) {
+        this.columns = columns;
     }
+
 
     
 }

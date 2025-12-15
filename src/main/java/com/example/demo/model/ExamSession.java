@@ -1,28 +1,33 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 public class ExamSession{
     private long id;
     private String courseCode;
     private LocalDate examDate;
     private String examTime;
-    private Student students;
+    private HashSet<Student> students;
 
     public ExamSession(){
 
     }
 
-    public ExamSession(String courseCode, LocalDate examDate, String examTime, Student students) {
+    
+
+    public long getId() {
+        return id;
+    }
+
+    public ExamSession(String courseCode, LocalDate examDate, String examTime, HashSet<Student> students) {
         this.courseCode = courseCode;
         this.examDate = examDate;
         this.examTime = examTime;
         this.students = students;
     }
 
-    public long getId() {
-        return id;
-    }
+
 
     public void setId(long id) {
         this.id = id;
@@ -52,13 +57,19 @@ public class ExamSession{
         this.examTime = examTime;
     }
 
-    public Student getStudents() {
+
+
+    public HashSet<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Student students) {
+
+
+    public void setStudents(HashSet<Student> students) {
         this.students = students;
     }
+
+    
     
     
 }
