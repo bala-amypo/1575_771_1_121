@@ -1,5 +1,5 @@
 package com.example.demo.model;
 
-public class ExamSession{
+public class ExamS{
     private long id;
 }
