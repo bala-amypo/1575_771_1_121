@@ -1,19 +1,20 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class SeatingPlan{
     private long id;
     private ExamSession examSession;
     private ExamRoom room;
     private String arrangementJson;
-    private LocalDate generatedAt;
+    private LocalDateTime generatedAt;
 
     public SeatingPlan(){
 
     }
 
-    public SeatingPlan(ExamSession examSession, ExamRoom room, String arrangementJson, LocalDate generatedAt) {
+    public SeatingPlan(ExamSession examSession, ExamRoom room, String arrangementJson, LocalDateTime generatedAt) {
         this.examSession = examSession;
         this.room = room;
         this.arrangementJson = arrangementJson;
@@ -52,13 +53,12 @@ public class SeatingPlan{
         this.arrangementJson = arrangementJson;
     }
 
-    public LocalDate getGeneratedAt() {
+    public LocalDateTime getGeneratedAt() {
         return generatedAt;
     }
 
-    public void setGeneratedAt(LocalDate generatedAt) {
+    public void setGeneratedAt(LocalDateTime generatedAt) {
         this.generatedAt = generatedAt;
     }
-    
     
 }
