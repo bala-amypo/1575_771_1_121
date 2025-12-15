@@ -12,10 +12,18 @@ import com.example.demo.service.UserService;
 public class UserServiceImpl implements UserService{
     List<User> users = new ArrayList<>();
     int idx = 1;
-    User register(User user){
+    public User register(User user){
+        user.setId(idx);
+        idx++;
         users.add(user);
+        return user;
     }
-    User findByEmail(String email){
-
+    public User findByEmail(String email){
+        for(User u:users){
+            if(u.getEmail().equals(email)){
+                return u;
+            }
+        }
+        return null;
     }
 }
