@@ -3,15 +3,15 @@
 @RequestMapping("/auth")
 public class AuthController{
     @Autowired
-    ExamRoomService examRoomService;
+    UserService userService;
 
     @PostMapping("/register")
-    Response<>register(){
-
+    public ResponseEntity<User>register(@Valid 2){
+        return ResponseEntity.status(201).body()
     }
 
     @PostMapping("/login")
-    ResponseEntity<>login(){
+    public ResponseEntity<User>login(){
 
     }
 }
