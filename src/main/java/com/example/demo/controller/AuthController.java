@@ -11,7 +11,7 @@ public class AuthController{
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User>login(@RequestBody String email){
+    public ResponseEntity<User>login(@PathVariable String email){
         return ResponseEntity.status(200).body(userService.findByEmail(email));
     }
 }
