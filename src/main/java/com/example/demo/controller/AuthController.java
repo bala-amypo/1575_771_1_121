@@ -6,12 +6,12 @@ public class AuthController{
     UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<User>register(@Valid 2){
-        return ResponseEntity.status(201).body()
+    public ResponseEntity<User>register(@Valid @RequestBody User user){
+        return ResponseEntity.status(201).body(userService.register(user));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User>login(){
-
+    public ResponseEntity<User>login(@RequestBody String email){
+        return ResponseEntity.status(201).body(userService.register(user));
     }
 }
