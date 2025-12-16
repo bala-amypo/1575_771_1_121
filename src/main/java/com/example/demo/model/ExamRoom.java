@@ -9,7 +9,7 @@ public class ExamRoom{
     public ExamRoom(){
 
     }
-    public ExamRoom(String roomNumber, String name, String department, int year) {
+    public ExamRoom(String roomNumber, int capacity, int rows, int columns) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         this.rows = rows;
