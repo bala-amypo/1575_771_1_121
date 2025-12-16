@@ -1,13 +1,14 @@
-package com.example.demo.repository;
+package com.example.demo.service.impl;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.example.demo.model.repository.StudentRepository;
 import com.example.demo.model.Student;
 
 @Service
 public class StudentServiceImpl implements StudentService{
-    @Autowiring
+    @Autowired
     StudentRepository StudentRepository;
     Student addStudent(Student student){
         return StudentRepository.save(student);

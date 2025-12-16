@@ -1,9 +1,9 @@
-package com.example.demo.repository;
+package com.example.demo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.repository.ExamRoomRepository;
+import com.example.demo.model.repository.SeatingPlanRepository;
 import com.example.demo.model.SeatingPlan;
 
 @Service
