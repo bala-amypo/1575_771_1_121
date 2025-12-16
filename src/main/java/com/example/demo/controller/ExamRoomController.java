@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,12 @@ public class ExamRoomController{
     ExamRoomService examRoomService;
 
     @PostMapping
-    public ResponseEntity<ExamRoom> addRoom(@RequestBody ExamRoom examRoom){
-        return ResponseEntity.status(200).body(examRoomService.addRoom(examRoom));
+    public ResponseEntity<ExamRoom> addRoom(@Valid @RequestBody ExamRoom examRoom){
+        return new ResponseEntity.status(201).body(examRoomService.addRoom(examRoom));
     }
 
     @GetMapping
-    public ResponseEntity<ExamRoom> listRooms(@RequestBody ExamRoom examRoom){
-        return ResponseEntity.status(200).body(examRoomService.getAllStudents());
+    public ResponseEntity<List<ExamRoom>> listRooms(){
+        return ResponseEntity.status(200).body(examRoomService.getAllRooms());
     }
 }
