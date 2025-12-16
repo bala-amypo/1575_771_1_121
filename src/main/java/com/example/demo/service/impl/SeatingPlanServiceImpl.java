@@ -3,7 +3,8 @@ package com.example.demo.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.repository.SeatingPlanRepository;
+import com.example.demo.repository.SeatingPlanRepository;
+import com.example.demo.service.SeatingPlanService;
 import com.example.demo.model.SeatingPlan;
 
 @Service
