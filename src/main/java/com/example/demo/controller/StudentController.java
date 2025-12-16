@@ -19,12 +19,12 @@ public class AuthController{
     StudentService studentService;
 
     @PostMapping
-    public ResponseEntity<Student>addStudent(@Valid @RequestBody Student student){
+    public ResponseEntity<Student>add(@Valid @RequestBody Student student){
         return ResponseEntity.status(201).body(studentService.addStudent(student));
     }
 
     @GetMapping
-    public ResponseEntity<List<Student>> getAllStudents(){
+    public ResponseEntity<List<Student>> list(){
         return ResponseEntity.status(200).body(studentService.getAllStudents());
     }
 }
