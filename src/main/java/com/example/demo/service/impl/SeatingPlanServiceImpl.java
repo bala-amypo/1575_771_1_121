@@ -31,6 +31,6 @@ public class SeatingPlanServiceImpl implements SeatingPlanService{
 
     @Override
     public List<SeatingPlan> getPlansBySession(long sessionId){
-        return seatingPlanRepository.findBy
+        return seatingPlanRepository.findByExamSessionId(sessionId);
     }
 }

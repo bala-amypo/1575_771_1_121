@@ -7,5 +7,5 @@ import com.example.demo.model.SeatingPlan;
 
 @Repository
 public interface SeatingPlanRepository extends JpaRepository<SeatingPlan,Long>{
-
+    List<SeatingPlan> findByExamSessionId(long sessionId);
 }
