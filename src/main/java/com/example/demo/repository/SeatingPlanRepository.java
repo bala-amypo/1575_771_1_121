@@ -1,2 +1,4 @@
 
-public interface SeatingPlanRepository extends Jpa
+public interface SeatingPlanRepository extends JpaRepository<SeatingPlan,Long>{
+    
+}
