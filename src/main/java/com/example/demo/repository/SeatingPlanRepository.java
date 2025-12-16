@@ -1,2 +1,2 @@
 
-public interface SeatingPlan
+public interface SeatingPlanRepository extends Jpa
