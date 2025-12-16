@@ -1,5 +1,7 @@
 package com.example.demo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,12 @@ public class StudentServiceImpl implements StudentService{
     @Autowired
     StudentRepository studentRepository;
     
-    Student addStudent(Student student){
+    public Student addStudent(Student student){
         return studentRepository.save(student);
     }
 
-    List<Student> getAllStudents(){
+    public List<Student> getAllStudents(){
         return studentRepository.findAll();
     }
-    
+
 }

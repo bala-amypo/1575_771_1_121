@@ -14,12 +14,12 @@ public class SeatingPlanServiceImpl implements SeatingPlanService{
     SeatingRepository seatingRepository;
 
     @Override
-    SeatingPlan generatePlan(long sessionId){
+    public SeatingPlan generatePlan(long sessionId){
         seatingRepository.examSession.id
     }
 
     @Override
-    SeatingPlan getPlan(long planId){
+    public SeatingPlan getPlan(long planId){
         Optional<SeatingPlan> s= findById(planId);
         if(s.presence()){
             return s.examRoom.getById(planId);
@@ -27,7 +27,7 @@ public class SeatingPlanServiceImpl implements SeatingPlanService{
     }
 
     @Override
-    SeatingPlan getPlansBySession(long sessionId){
+    public SeatingPlan getPlansBySession(long sessionId){
 
     }
 }

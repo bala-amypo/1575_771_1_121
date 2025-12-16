@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.ExamRoom;
-import com.example.demo.model.repository.ExamRoomRepository;
+import com.example.demo.service.ExamRoomService;
+import com.example.demo.repository.ExamRoomRepository;
 
 @Service
 public interface ExamRoomServiceImpl implements ExamRoomService{

@@ -1,3 +1,6 @@
+package com.example.demo.controller;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/students")
@@ -11,7 +14,7 @@ public class AuthController{
     }
 
     @PostMapping("/liststudents")
-    public ResponseEntity<Student> getAllStudents(){
+    public ResponseEntity<List<Student>> getAllStudents(){
         return ResponseEntity.status(200).body(StudentService.getAllStudents());
     }
 }
