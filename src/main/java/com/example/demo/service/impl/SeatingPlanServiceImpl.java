@@ -14,10 +14,10 @@ public class SeatingPlanServiceImpl extends SeatingPlanService{
     SeatingPlan getPlan(long planId){
         Optional<SeatingPlan> s= findById(planId);
         if(s.presence()){
-            return 
+            return s.getById(planId);
         }
     }
     SeatingPlan getPlansBySession(long sessionId){
-
+        
     }
 }

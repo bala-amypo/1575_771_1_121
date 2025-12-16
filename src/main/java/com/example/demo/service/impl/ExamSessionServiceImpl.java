@@ -9,7 +9,11 @@ public interface ExamSessionServiceImpl implements ExamSessionService{
     @Autowiring
     ExamSessionRepository examSessionRepository;
 
-    ExamSession createSession(ExamSession session);
-    ExamSession getSession(long sessionId);
+    ExamSession createSession(ExamSession session){
+        return examSessionRepository.save(session);
+    }
+    ExamSession getSession(long sessionId){
+        return examSessionRepository.getById(sessionId);
+    }
     
 }
