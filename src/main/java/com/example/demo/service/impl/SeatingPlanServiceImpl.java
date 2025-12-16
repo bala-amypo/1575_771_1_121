@@ -9,15 +9,15 @@ import com.example.demo1.model.SeatingPlan;
 public class SeatingPlanServiceImpl extends SeatingPlanService{
     SeatingRepository seatingRepository;
     SeatingPlan generatePlan(long sessionId){
-        
+        seatingRepository.examSession.id
     }
     SeatingPlan getPlan(long planId){
         Optional<SeatingPlan> s= findById(planId);
         if(s.presence()){
-            return s.getById(planId);
+            return s.examRoom.getById(planId);
         }
     }
     SeatingPlan getPlansBySession(long sessionId){
-        
+
     }
 }
