@@ -5,15 +5,19 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo1.model.SeatingPlan;
 
-@Repository
-public interface SeatingPlanRepository extends JpaRepository<SeatingPlan,Long>{
+@Service
+public class SeatingPlanServiceImpl extends SeatingPlanService{
+    SeatingRepository seatingRepository;
     SeatingPlan generatePlan(long sessionId){
-
+        
     }
     SeatingPlan getPlan(long planId){
-
+        Optional<SeatingPlan> s= findById(planId);
+        if(s.presence()){
+            return 
+        }
     }
     SeatingPlan getPlansBySession(long sessionId){
-        
+
     }
 }

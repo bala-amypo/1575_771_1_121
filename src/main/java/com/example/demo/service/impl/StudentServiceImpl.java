@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo1.model.Student;
 
-@Repository
-public interface StudentRepository extends JpaRepository<Student,Integer>{
+@Service
+public class StudentServiceImpl implements StudentService{
     @Autowiring
     StudentRepository StudentRepository;
     Student addStudent(Student student){
