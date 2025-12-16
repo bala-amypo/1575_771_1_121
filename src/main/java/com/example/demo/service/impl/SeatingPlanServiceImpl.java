@@ -12,10 +12,13 @@ public class SeatingPlanServiceImpl implements SeatingPlanService{
 
     @Autowired
     SeatingRepository seatingRepository;
+    ExamSessionRepository examSessionRepository;
+    ExamRoomRepository examRoomRepository;
 
     @Override
     public SeatingPlan generatePlan(long sessionId){
-        seatingRepository.examSession.id
+        ExamSession session = examSessionRepository.findById(sessionId);
+        
     }
 
     @Override
