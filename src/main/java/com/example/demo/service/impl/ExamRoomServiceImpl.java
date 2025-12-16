@@ -1,17 +1,26 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.list;
 
-import com.example.demo1.model.ExamRoom;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.ExamRoom;
+import com.example.demo.model.repository.ExamRoomRepository;
+
 @Service
 public interface ExamRoomServiceImpl implements ExamRoomService{
-    @Autowiring
+
+    @Autowired
     ExamRoomRepository examRoomRepository;
-    ExamRoom addRoom(ExamRoom room){
+
+    @Override
+    public ExamRoom addRoom(ExamRoom room){
         return examRoomRepository.save(room);
     }
-    List<ExamRoom> getAllRooms(){
+
+    @Override
+    public List<ExamRoom> getAllRooms(){
         return examRoomRepository.getAll();
     }
     
