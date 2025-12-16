@@ -1,7 +1,16 @@
-package com.example.demo.model;
+package com.example.demo1.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 public class ExamRoom{
+
+     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true)
     private String roomNumber;
     private int capacity;
     private int rows;
