@@ -1,18 +1,22 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.example.demo.model.repository.ExamSessionRepository;
 import com.example.demo.model.ExamSession;
+
 @Service
 public interface ExamSessionServiceImpl implements ExamSessionService{
-    @Autowiring
+
+    @Autowired
     ExamSessionRepository examSessionRepository;
 
-    ExamSession createSession(ExamSession session){
+    public ExamSession createSession(ExamSession session){
         return examSessionRepository.save(session);
     }
-    ExamSession getSession(long sessionId){
+
+    public ExamSession getSession(long sessionId){
         return examSessionRepository.getById(sessionId);
     }
     
