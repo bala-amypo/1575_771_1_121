@@ -1,14 +1,18 @@
 package com.example.demo.model;
 
 public class User{
+    @Id
+    @GeneratedValue(Strategy=GenerationType.IDENDITY)
     private long id;
     private String name;
+
+    @Email
+    @Column(unique=true)
     private String email;
     private String password;
     private String role;
 
-    @Id
-    @GeneratedValue(Str)
+    
     public User(){
 
     }
