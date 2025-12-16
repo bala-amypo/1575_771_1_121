@@ -14,15 +14,9 @@ public class UserServiceImpl implements UserService{
     UserRepository userRepository;
 
     public User register(User user){
-        userRepository.save(user);
-        return user;
+        return userRepository.save(user);
     }
     public User findByEmail(String email){
-        for(User u:users){
-            if(u.getEmail().equals(email)){
-                return u;
-            }
-        }
-        return null;
+       
     }
 }
