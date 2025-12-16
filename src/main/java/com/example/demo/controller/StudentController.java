@@ -23,7 +23,7 @@ public class AuthController{
         return ResponseEntity.status(201).body(studentService.addStudent(student));
     }
 
-    @PostMapping
+    @GetMapping
     public ResponseEntity<List<Student>> getAllStudents(){
         return ResponseEntity.status(200).body(studentService.getAllStudents());
     }
