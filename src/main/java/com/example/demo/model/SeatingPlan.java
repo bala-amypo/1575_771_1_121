@@ -2,11 +2,18 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class SeatingPlan{
+     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private ExamSession examSession;
     private ExamRoom room;
     private String arrangementJson;
+    
     private LocalDateTime generatedAt;
 
     public SeatingPlan(){

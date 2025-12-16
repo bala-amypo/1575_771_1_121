@@ -1,13 +1,22 @@
-package com.example.demo.model;
+package com.example.demo1.model;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Size;
+
 public class ExamSession{
+
+     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String courseCode;
     private LocalDate examDate;
     private String examTime;
+    @Size(min = 1)
     private HashSet<Student> students;
 
     public ExamSession(){

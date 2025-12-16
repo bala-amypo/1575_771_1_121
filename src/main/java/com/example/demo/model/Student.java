@@ -1,7 +1,15 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class Student{
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+    @Column(unique=true)
     private String rollNumber;
     private String name;
     private String department;

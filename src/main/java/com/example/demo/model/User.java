@@ -1,8 +1,14 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+
 public class User{
     @Id
-    @GeneratedValue(Strategy=GenerationType.IDENDITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String name;
 
