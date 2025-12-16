@@ -3,11 +3,11 @@
 @RequestMapping("/students")
 public class AuthController{
     @Autowired
-    UserService userService;
+    StudentService studentService;
 
     @PostMapping("/addstudent")
-    public ResponseEntity<User>register(@Valid @RequestBody User user){
-        return ResponseEntity.status(201).body(userService.register(user));
+    public ResponseEntity<User>addStudent(@Valid @RequestBody Student student){
+        return ResponseEntity.status(201).body(userService.addStudent(user));
     }
 
     @PostMapping("/liststudents")
