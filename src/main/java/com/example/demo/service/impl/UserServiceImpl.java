@@ -10,12 +10,11 @@ import com.example.demo.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{
-    List<User> users = new ArrayList<>();
-    int idx = 1;
+    @Autowiring
+    UserRepository userRepository;
+
     public User register(User user){
-        user.setId(idx);
-        idx++;
-        users.add(user);
+        userRepository.save(user);
         return user;
     }
     public User findByEmail(String email){
