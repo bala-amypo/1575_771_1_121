@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.example.demo1.model.SeatingPlan;
 
 @Service
-public class SeatingPlanServiceImpl extends SeatingPlanService{
+public class SeatingPlanServiceImpl implements SeatingPlanService{
+    @Autowiring
     SeatingRepository seatingRepository;
     SeatingPlan generatePlan(long sessionId){
         seatingRepository.examSession.id
