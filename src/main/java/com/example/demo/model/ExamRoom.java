@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 
 public class ExamRoom{
 
-     @Id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     @Column(unique = true)

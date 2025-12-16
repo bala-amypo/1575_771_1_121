@@ -7,5 +7,13 @@ import com.example.demo1.model.SeatingPlan;
 
 @Repository
 public interface SeatingPlanRepository extends JpaRepository<SeatingPlan,Long>{
+    SeatingPlan generatePlan(long sessionId){
 
+    }
+    SeatingPlan getPlan(long planId){
+
+    }
+    SeatingPlan getPlansBySession(long sessionId){
+        
+    }
 }
