@@ -11,14 +11,14 @@ import com.example.demo.model.SeatingPlan;
 public class SeatingPlanServiceImpl implements SeatingPlanService{
 
     @Autowired
-    SeatingRepository seatingRepository;
+    SeatingPlanRepository seatingPlanRepository;
     ExamSessionRepository examSessionRepository;
     ExamRoomRepository examRoomRepository;
 
     @Override
     public SeatingPlan generatePlan(long sessionId){
         ExamSession session = examSessionRepository.findById(sessionId);
-        
+
     }
 
     @Override
@@ -30,7 +30,7 @@ public class SeatingPlanServiceImpl implements SeatingPlanService{
     }
 
     @Override
-    public SeatingPlan getPlansBySession(long sessionId){
-
+    public List<SeatingPlan> getPlansBySession(long sessionId){
+        return seatingPlanRepository.findBy
     }
 }
