@@ -1,14 +1,17 @@
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController{
     @Autowired
     ExamRoomService examRoomService;
 
     @PostMapping("/register")
-    register(){
+    Response<>register(){
 
     }
-    login(){
-        
+
+    @PostMapping("/login")
+    ResponseEntity<>login(){
+
     }
 }
