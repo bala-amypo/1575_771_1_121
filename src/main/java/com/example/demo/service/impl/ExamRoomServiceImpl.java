@@ -7,5 +7,12 @@ import com.example.demo1.model.ExamRoom;
 @Service
 public interface ExamRoomServiceImpl implements ExamRoomService{
     @Autowiring
-    res
+    ExamRoomRepository examRoomRepository;
+    ExamRoom addRoom(ExamRoom room){
+        return examRoomRepository.save(room);
+    }
+    List<ExamRoom> getAllRooms(){
+        return examRoomRepository.getAll();
+    }
+    
 }
