@@ -5,7 +5,6 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,11 @@ import com.example.demo.service.StudentService;
 @RequestMapping("/students")
 public class StudentController{
 
-    @Autowired
-    StudentService studentService;
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @PostMapping
     public ResponseEntity<Student>add(@Valid @RequestBody Student student){

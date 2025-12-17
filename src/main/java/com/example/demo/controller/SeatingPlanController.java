@@ -15,7 +15,11 @@ import com.example.demo.service.SeatingPlanService;
 @RestController
 public class SeatingPlanController {
     
-    SeatingPlanService seatingPlanService;
+    private final SeatingPlanService seatingPlanService;
+
+    public SeatingPlanController(SeatingPlanService seatingPlanService) {
+        this.seatingPlanService = seatingPlanService;
+    }
 
     @PostMapping("/generate/{sessionId}")
     public ResponseEntity<SeatingPlan> generateSeatingPlan(@PathVariable long sessionId){
@@ -24,7 +28,7 @@ public class SeatingPlanController {
 
     @GetMapping("/{planId}")
     public ResponseEntity<SeatingPlan> getSeatingPlan(@PathVariable long planId){
-        return ResponseEntity.status(201).body(seatingPlanService.getPlan(planId));
+        return ResponseEntity.status(200).body(seatingPlanService.getPlan(planId));
     }
 
     @GetMapping("/session/{sessionId}")

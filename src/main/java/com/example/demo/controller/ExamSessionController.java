@@ -2,9 +2,7 @@ package com.example.demo.controller;
 
 import jakarta.validation.Valid;
 
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +13,11 @@ import com.example.demo.service.ExamSessionService;
 @RequestMapping("/sessions")
 public class ExamSessionController{
 
-    @Autowired
-    ExamSessionService examSessionService;
+    private final ExamSessionService examSessionService;
+
+    public ExamSessionController(ExamSessionService examSessionService) {
+        this.examSessionService = examSessionService;
+    }
 
     @PostMapping
     public ResponseEntity<ExamSession> createSession(@Valid @RequestBody ExamSession examSession){
@@ -24,7 +25,7 @@ public class ExamSessionController{
     }
 
     @GetMapping("/{sessionId}")
-    public ResponseEntity<Optional<ExamSession>> getSession(@PathVariable long sessionId){
+    public ResponseEntity<ExamSession> getSession(@PathVariable long sessionId){
         return ResponseEntity.status(200).body(examSessionService.getSession(sessionId));
     }
 }

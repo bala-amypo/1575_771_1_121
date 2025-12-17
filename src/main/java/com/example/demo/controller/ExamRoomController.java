@@ -4,7 +4,6 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +14,11 @@ import com.example.demo.service.ExamRoomService;
 @RequestMapping("/rooms")
 public class ExamRoomController{
 
-    @Autowired
-    ExamRoomService examRoomService;
+     private final ExamRoomService examRoomService;
 
+    public ExamRoomController(ExamRoomService examRoomService) {
+        this.examRoomService = examRoomService;
+    }
     @PostMapping
     public ResponseEntity<ExamRoom> addRoom(@Valid @RequestBody ExamRoom examRoom){
         return ResponseEntity.status(201).body(examRoomService.addRoom(examRoom));
