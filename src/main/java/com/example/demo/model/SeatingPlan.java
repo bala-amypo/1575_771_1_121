@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 public class SeatingPlan{
-     @Id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private ExamSession examSession;
