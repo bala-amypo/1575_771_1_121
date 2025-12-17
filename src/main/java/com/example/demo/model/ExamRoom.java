@@ -4,17 +4,24 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 
 public class ExamRoom{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(unique = true)
     private String roomNumber;
-    private int capacity;
     private int rows;
     private int columns;
+    private int capacity;
+
+    @PrePersist @PreUpdate
+    public void ensureCapacityMatches(){
+        this.capacity = rows*columns;
+    }
     public ExamRoom(){
 
     }
