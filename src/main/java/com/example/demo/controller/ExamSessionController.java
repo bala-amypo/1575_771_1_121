@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import jakarta.validation.Valid;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,7 @@ public class ExamSessionController{
     }
 
     @GetMapping("/{sessionId}")
-    public ResponseEntity<ExamSession> getSession(@PathVariable sessionId){
+    public ResponseEntity<Optional<ExamSession>> getSession(@PathVariable long sessionId){
         return ResponseEntity.status(200).body(examSessionService.getSession(sessionId));
     }
 }

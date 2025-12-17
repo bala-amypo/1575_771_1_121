@@ -20,7 +20,7 @@ public class ExamRoomController{
 
     @PostMapping
     public ResponseEntity<ExamRoom> addRoom(@Valid @RequestBody ExamRoom examRoom){
-        return new ResponseEntity.status(201).body(examRoomService.addRoom(examRoom));
+        return ResponseEntity.status(201).body(examRoomService.addRoom(examRoom));
     }
 
     @GetMapping
