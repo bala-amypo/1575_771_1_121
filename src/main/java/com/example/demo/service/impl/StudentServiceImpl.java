@@ -12,8 +12,11 @@ import com.example.demo.model.Student;
 @Service
 public class StudentServiceImpl implements StudentService{
     
-    @Autowired
-    StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
+
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
     
     public Student addStudent(Student student){
         return studentRepository.save(student);
