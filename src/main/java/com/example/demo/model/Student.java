@@ -14,7 +14,7 @@ public class Student{
     @Column(unique=true)
     private String rollNumber;
     private String name;
-    private String department;
+    private String department;  
     private Integer year;
 
     public Student(){
