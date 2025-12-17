@@ -5,56 +5,50 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "students")
-public class Student {
-
+public class Student{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true, nullable = false)
+    @Column(unique=true,nullable = false)
     private String rollNumber;
-
-    @Column(nullable = false)
     private String name;
-
     private String department;
     private Integer year;
 
-    public Student() {
+    public Student(){
+       
     }
 
-    public Student(String rollNumber, String name, String department, Integer year) {
-        this.rollNumber = rollNumber;
-        this.name = name;
+    public Student(String rollNumber,String name,String department,Integer year){
+        this.rollNumber=rollNumber;
+        this.name=name;
         this.department = department;
-        this.year = year;
+        this.year=year;
     }
 
-    public Long getId() {
+    public long getId(){
         return id;
     }
 
-    public String getRollNumber() {
+    public String getRollNumber(){
         return rollNumber;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public String getDepartment() {
+    public String getDepartment(){
         return department;
     }
 
-    public Integer getYear() {
+    public Integer getYear(){
         return year;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -73,4 +67,5 @@ public class Student {
     public void setYear(Integer year) {
         this.year = year;
     }
+
 }

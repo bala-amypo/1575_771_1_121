@@ -13,7 +13,7 @@ import jakarta.persistence.PrePersist;
 
 @Entity
 public class SeatingPlan{
-     @Id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)

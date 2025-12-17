@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 
 @Entity
@@ -19,6 +20,7 @@ public class ExamSession{
     private LocalDate examDate;
     private String examTime;
     @ManyToMany
+    @JoinColumn(name="session_id")
     private List<Student> students;
 
     public ExamSession(){
