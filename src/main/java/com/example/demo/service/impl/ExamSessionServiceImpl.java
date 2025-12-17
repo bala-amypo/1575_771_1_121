@@ -1,5 +1,7 @@
 package com.example.demo.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,8 +9,9 @@ import com.example.demo.repository.ExamSessionRepository;
 import com.example.demo.service.ExamSessionService;
 import com.example.demo.model.ExamSession;
 
+
 @Service
-public interface ExamSessionServiceImpl implements ExamSessionService{
+public class ExamSessionServiceImpl implements ExamSessionService{
 
     @Autowired
     ExamSessionRepository examSessionRepository;
@@ -17,8 +20,8 @@ public interface ExamSessionServiceImpl implements ExamSessionService{
         return examSessionRepository.save(session);
     }
 
-    public ExamSession getSession(long sessionId){
-        return examSessionRepository.getById(sessionId);
+    public Optional<ExamSession> getSession(long sessionId){
+        return examSessionRepository.findById(sessionId);
     }
     
 }

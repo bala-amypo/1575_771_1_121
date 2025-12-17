@@ -1,16 +1,16 @@
 package com.example.demo.service.impl;
 
-import java.util.list;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.ExamRoom;
-import com.example.demo.service.ExamRoomService;
 import com.example.demo.repository.ExamRoomRepository;
+import com.example.demo.service.ExamRoomService;
 
 @Service
-public interface ExamRoomServiceImpl implements ExamRoomService{
+public class ExamRoomServiceImpl implements ExamRoomService{
 
     @Autowired
     ExamRoomRepository examRoomRepository;
@@ -22,7 +22,7 @@ public interface ExamRoomServiceImpl implements ExamRoomService{
 
     @Override
     public List<ExamRoom> getAllRooms(){
-        return examRoomRepository.getAll();
+        return examRoomRepository.findAll();
     }
     
 }
