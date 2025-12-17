@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
+import com.example.demo.exception.ApiException;
 import com.example.demo.model.ExamSession;
 import com.example.demo.model.SeatingPlan;
 import com.example.demo.repository.ExamRoomRepository;
@@ -11,14 +11,20 @@ import com.example.demo.repository.ExamSessionRepository;
 import com.example.demo.repository.SeatingPlanRepository;
 import com.example.demo.service.SeatingPlanService;
 
+
+
 @Service
 public class SeatingPlanServiceImpl implements SeatingPlanService {
 
-   
-   SeatingPlanRepository seatingPlanRepository;
-   ExamSessionRepository examSessionRepository;
-   ExamRoomRepository examRoomRepository;
-    
+    private final ExamSessionRepository examSessionRepository;
+    private final SeatingPlanRepository seatingPlanRepository;
+    private final ExamRoomRepository examRoomRepository;
+
+    public SeatingPlanServiceImpl(ExamSessionRepository s, SeatingPlanRepository p, ExamRoomRepository r) {
+        this.examSessionRepository = s;
+        this.seatingPlanRepository = p;
+        this.examRoomRepository = r;
+    }
 
     @Override
     public SeatingPlan generatePlan(long sessionId) {
@@ -33,7 +39,7 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
     @Override
     public SeatingPlan getPlan(long planId) {
         return seatingPlanRepository.findById(planId)
-                .orElseThrow(() -> new RuntimeException("SeatingPlan not found"));
+                .orElseThrow(() -> new ApiException("SeatingPlan not found"));
     }
 
     @Override
