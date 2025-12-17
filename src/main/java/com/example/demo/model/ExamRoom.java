@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import jakarta.persistence.PreUpdate;
 @Entity
 public class ExamRoom{
 
-     @Id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
@@ -22,7 +22,9 @@ public class ExamRoom{
 
     @PrePersist @PreUpdate
     public void ensureCapacityMatches(){
+        if(rows!=0 && columns!=0){
         this.capacity = rows*columns;
+        }
     }
     public ExamRoom(){
 
