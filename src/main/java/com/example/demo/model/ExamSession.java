@@ -20,7 +20,6 @@ public class ExamSession{
     private LocalDate examDate;
     private String examTime;
     @ManyToMany
-    @JoinColumn(name="session_id")
     private List<Student> students;
 
     public ExamSession(){
