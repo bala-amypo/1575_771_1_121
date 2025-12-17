@@ -15,6 +15,8 @@ public class ExamSessionServiceImpl implements ExamSessionService{
 
     @Autowired
     ExamSessionRepository examSessionRepository;
+    @Autowired
+    StudentRepository studentRepository;
 
     public ExamSession createSession(ExamSession session){
         return examSessionRepository.save(session);
