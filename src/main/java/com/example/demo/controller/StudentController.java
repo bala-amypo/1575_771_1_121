@@ -13,7 +13,7 @@ import com.example.demo.service.StudentService;
 
 @RestController
 @RequestMapping("/students")
-public class AuthController{
+public class StudentController{
 
     @Autowired
     StudentService studentService;
