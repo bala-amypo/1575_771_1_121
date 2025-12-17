@@ -1,23 +1,24 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.List;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.ManyToMany;
+
 
 public class ExamSession{
 
-     @Id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String courseCode;
     private LocalDate examDate;
     private String examTime;
-    @Size(min = 1)
-    private HashSet<Student> students;
+    @ManyToMany
+    private List<Student> students;
 
     public ExamSession(){
 
@@ -29,7 +30,7 @@ public class ExamSession{
         return id;
     }
 
-    public ExamSession(String courseCode, LocalDate examDate, String examTime, HashSet<Student> students) {
+    public ExamSession(String courseCode, LocalDate examDate, String examTime, List<Student> students) {
         this.courseCode = courseCode;
         this.examDate = examDate;
         this.examTime = examTime;
@@ -68,13 +69,13 @@ public class ExamSession{
 
 
 
-    public HashSet<Student> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
 
 
-    public void setStudents(HashSet<Student> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 

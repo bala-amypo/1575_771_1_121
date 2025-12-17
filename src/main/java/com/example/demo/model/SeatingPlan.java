@@ -2,19 +2,30 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 
 public class SeatingPlan{
-    @Id
+     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+    @ManyToOne
     private ExamSession examSession;
+    @ManyToOne
     private ExamRoom room;
+    @Column(columnDefinition = "TEXT")
     private String arrangementJson;
     
     private LocalDateTime generatedAt;
+
+    @PrePersist
+    public void onCreate(){
+        generatedAt = LocalDateTime.now();
+    }
 
     public SeatingPlan(){
 

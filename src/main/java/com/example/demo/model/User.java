@@ -9,14 +9,14 @@ import jakarta.validation.constraints.Email;
 public class User{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
 
     @Email
     @Column(unique=true)
     private String email;
     private String password;
-    private String role = "STAFF";
+    private String role="STAFF";
 
     
     public User(){

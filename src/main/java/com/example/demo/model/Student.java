@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 public class Student{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(unique=true)
     private String rollNumber;
     private String name;
