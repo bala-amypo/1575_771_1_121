@@ -30,9 +30,7 @@ public class ExamSession{
 
     
 
-    public long getId() {
-        return id;
-    }
+   
 
     public ExamSession(String courseCode, LocalDate examDate, String examTime, Set<Student> students) {
         this.courseCode = courseCode;
@@ -47,6 +45,10 @@ public class ExamSession{
         this.id = id;
     }
 
+     public Long getId() {
+        return id;
+    }
+    
     public String getCourseCode() {
         return courseCode;
     }
