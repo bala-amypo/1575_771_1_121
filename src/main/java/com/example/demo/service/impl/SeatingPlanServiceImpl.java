@@ -39,7 +39,7 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
     @Override
     public SeatingPlan getPlan(long planId) {
         return seatingPlanRepository.findById(planId)
-                .orElseThrow(() -> new ApiException("SeatingPlan not found"));
+                .orElseThrow(() -> new ApiException("plan not found"));
     }
 
     @Override

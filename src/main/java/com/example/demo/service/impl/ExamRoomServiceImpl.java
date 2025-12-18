@@ -21,7 +21,7 @@ public class ExamRoomServiceImpl implements ExamRoomService{
 
     @Override
     public ExamRoom addRoom(ExamRoom room){
-        if(room.getRows()<=0||room.getColumns()<=0||room.getCapacity()!=(roroom.getRows()*room.getColumns())){
+        if(room.getRows()<=0||room.getColumns()<=0 || room.getCapacity()!=(room.getRows()*room.getColumns())){
             throw new ApiException("Invalid room size");
         }
         if(examRoomRepository.findByRoomNumber(room.getRoomNumber()).isPresent()){
