@@ -48,7 +48,7 @@ public class ExamSession{
      public Long getId() {
         return id;
     }
-    
+
     public String getCourseCode() {
         return courseCode;
     }
@@ -75,7 +75,7 @@ public class ExamSession{
 
 
 
-    public List<Student> getStudents() {
+    public Set<Student> getStudents() {
         return students;
     }
 
