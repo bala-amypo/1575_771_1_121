@@ -1,8 +1,8 @@
 package com.example.demo.model;
-
+jakarta.persistence.CascadeType
 import java.time.LocalDate;
 import java.util.Set;
-
+jakarta.persistence.Column
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +23,6 @@ public class ExamSession{
     private LocalDate examDate;
     @Column(name = "exam_session_time")
     private String examTime;
-    @ManyToMany
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 @JoinTable(
     name = "session_student_mapping",
