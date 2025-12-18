@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 
 @Entity
@@ -20,6 +21,7 @@ public class ExamSession{
     private Long id;
     private String courseCode;
     private LocalDate examDate;
+    @Column(name = "exam_session_time")
     private String examTime;
     @ManyToMany
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
