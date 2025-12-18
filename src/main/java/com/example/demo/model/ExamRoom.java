@@ -17,7 +17,9 @@ public class ExamRoom{
     private Long id;
     @Column(unique = true)
     private String roomNumber;
+    @Column(name = "room_rows")
     private Integer rows;
+    @Column(name = "room_columns")
     private Integer columns;
     private Integer capacity;
 
