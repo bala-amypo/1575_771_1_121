@@ -30,26 +30,47 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     @Override
     public SeatingPlan generatePlan(long sessionId) {
-                ExamSession session = sessionRepo.findById(sessionId)
-                .orElseThrow(() -> new ApiException("session not found"));
+        
+        Optional<ExamSession> sessionOpt = sessionRepo.findById(sessionId);
+        if (!sessionOpt.isPresent()) {
+            throw new ApiException("session not found");
+        }
 
-        int count = session.getStudents().size();
-        ExamRoom room = roomRepo.findByCapacityGreaterThanEqual(count)
-                .stream().findFirst()
-                .orElseThrow(() -> new ApiException("no room"));
+        ExamSession session = sessionOpt.get();
+        int studentCount = session.getStudents().size();
 
-        Map<String, String> map = new LinkedHashMap<>();
-        int i = 1;
-        for (Student s : session.getStudents()) {
-            map.put("Seat-" + i++, s.getRollNumber());
+        List<ExamRoom> rooms = roomRepo.findAll();
+        ExamRoom selectedRoom = null;
+
+        for (ExamRoom room : rooms) {
+            if (room.getCapacity() >= studentCount) {
+                selectedRoom = room;
+                break; // pick first sufficient room
+            }
+        }
+
+        if (selectedRoom == null) {
+            throw new ApiException("no room");
+        }
+
+        Map<String, String> seatingMap = new LinkedHashMap<>();
+        int seatIndex = 1;
+
+        for (Student student : session.getStudents()) {
+            seatingMap.put("Seat-" + seatIndex, student.getRollNumber());
+            seatIndex++;
         }
 
         try {
+            ObjectMapper mapper = new ObjectMapper();
+
             SeatingPlan plan = new SeatingPlan();
             plan.setExamSession(session);
-            plan.setRoom(room);
-            plan.setArrangementJson(new ObjectMapper().writeValueAsString(map));
+            plan.setRoom(selectedRoom);
+            plan.setArrangementJson(mapper.writeValueAsString(seatingMap));
+
             return planRepo.save(plan);
+
         } catch (Exception e) {
             throw new ApiException("json error");
         }
