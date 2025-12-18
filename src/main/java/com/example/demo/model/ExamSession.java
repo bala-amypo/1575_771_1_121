@@ -34,7 +34,7 @@ public class ExamSession{
         return id;
     }
 
-    public ExamSession(String courseCode, LocalDate examDate, String examTime, List<Student> students) {
+    public ExamSession(String courseCode, LocalDate examDate, String examTime, Set<Student> students) {
         this.courseCode = courseCode;
         this.examDate = examDate;
         this.examTime = examTime;
@@ -79,7 +79,7 @@ public class ExamSession{
 
 
 
-    public void setStudents(List<Student> students) {
+    public void setStudents(Set<Student> students) {
         this.students = students;
     }
 

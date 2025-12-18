@@ -45,7 +45,7 @@ public class SeatingPlan{
         this.generatedAt = generatedAt;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

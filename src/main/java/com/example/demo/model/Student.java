@@ -30,7 +30,7 @@ public class Student{
         this.year=year;
     }
 
-    public long getId(){
+    public Long getId(){
         return id;
     }
 
