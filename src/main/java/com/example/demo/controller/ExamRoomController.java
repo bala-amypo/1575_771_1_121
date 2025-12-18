@@ -14,7 +14,7 @@ import com.example.demo.service.ExamRoomService;
 @RequestMapping("/rooms")
 public class ExamRoomController{
 
-     private final ExamRoomService examRoomService;
+    private final ExamRoomService examRoomService;
 
     public ExamRoomController(ExamRoomService examRoomService) {
         this.examRoomService = examRoomService;
