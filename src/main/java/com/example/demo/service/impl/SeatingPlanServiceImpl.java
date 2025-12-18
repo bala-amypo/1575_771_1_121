@@ -74,7 +74,6 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
             plan.setRoom(selectedRoom);
             plan.setArrangementJson(mapper.writeValueAsString(seatingMap));
 
-            // Use "seatingPlanRepository" instead of "planRepo"
             return seatingPlanRepository.save(plan);
 
         } catch (Exception e) {
