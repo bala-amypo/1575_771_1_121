@@ -24,6 +24,6 @@ public class AuthController{
 
     @PostMapping("/login")
     public ResponseEntity<User>login(@RequestBody User user){
-        return ResponseEntity.status(200).body(userService.findByEmail(user.getEmail()));
+        return ResponseEntity.status(201).body(userService.findByEmail(user.getEmail()));
     }
 }
