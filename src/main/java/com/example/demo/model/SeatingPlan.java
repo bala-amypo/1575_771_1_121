@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 import java.time.LocalDateTime;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -18,10 +18,10 @@ public class SeatingPlan{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.EAGER) // Changed to EAGER for easier GET requests
+    @JsonIgnoreProperties({"students", "hibernateLazyInitializer", "handler"}) 
     private ExamSession examSession;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER) // Changed to EAGER
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ExamRoom room;
     @Column(columnDefinition = "TEXT")
