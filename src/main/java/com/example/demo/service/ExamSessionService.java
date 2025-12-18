@@ -5,5 +5,5 @@ import com.example.demo.model.ExamSession;
 
 public interface ExamSessionService{
     ExamSession createSession(ExamSession session);
-    ExamSession getSession(long sessionId);
+    ExamSession getSession(Long sessionId);
 }
