@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.example.demo.exception.ApiException;
 import com.example.demo.model.ExamSession;
 import com.example.demo.model.SeatingPlan;
-import com.example.demo.model.ExamRoom; // ADDED THIS IMPORT
-import com.example.demo.model.Student;  // ADDED THIS IMPORT
+import com.example.demo.model.ExamRoom; 
+import com.example.demo.model.Student;  
 import com.example.demo.repository.ExamRoomRepository;
 import com.example.demo.repository.ExamSessionRepository;
 import com.example.demo.repository.SeatingPlanRepository;
@@ -35,7 +35,7 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
     @Override
     public SeatingPlan generatePlan(Long sessionId) {
         
-        // Use "examSessionRepository" instead of "sessionRepo"
+        
         Optional<ExamSession> sessionOpt = examSessionRepository.findById(sessionId);
         if (!sessionOpt.isPresent()) {
             throw new ApiException("session not found");
@@ -44,7 +44,6 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
         ExamSession session = sessionOpt.get();
         int studentCount = session.getStudents().size();
 
-        // Use "examRoomRepository" instead of "roomRepo"
         List<ExamRoom> rooms = examRoomRepository.findAll();
         ExamRoom selectedRoom = null;
 
