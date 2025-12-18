@@ -22,6 +22,12 @@ public class ExamSession{
     private LocalDate examDate;
     private String examTime;
     @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+@JoinTable(
+    name = "session_student_mapping",
+    joinColumns = @JoinColumn(name = "session_id"),
+    inverseJoinColumns = @JoinColumn(name = "student_id")
+)
     private Set<Student> students;
 
     public ExamSession(){
