@@ -13,6 +13,7 @@ import com.example.demo.service.SeatingPlanService;
 
 
 @RestController
+@RequestMapping("/plans")
 public class SeatingPlanController {
     
     private final SeatingPlanService seatingPlanService;
