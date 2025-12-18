@@ -11,6 +11,8 @@ import com.example.demo.repository.ExamSessionRepository;
 import com.example.demo.repository.SeatingPlanRepository;
 import com.example.demo.service.SeatingPlanService;
 
+import java.util.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Service
@@ -28,22 +30,39 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     @Override
     public SeatingPlan generatePlan(long sessionId) {
-        ExamSession session = examSessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("session not found"));
+                ExamSession session = sessionRepo.findById(sessionId)
+                .orElseThrow(() -> new ApiException("session not found"));
 
-        SeatingPlan plan = new SeatingPlan();
-        plan.setExamSession(session);
-        return seatingPlanRepository.save(plan);
+        int count = session.getStudents().size();
+        ExamRoom room = roomRepo.findByCapacityGreaterThanEqual(count)
+                .stream().findFirst()
+                .orElseThrow(() -> new ApiException("no room"));
+
+        Map<String, String> map = new LinkedHashMap<>();
+        int i = 1;
+        for (Student s : session.getStudents()) {
+            map.put("Seat-" + i++, s.getRollNumber());
+        }
+
+        try {
+            SeatingPlan plan = new SeatingPlan();
+            plan.setExamSession(session);
+            plan.setRoom(room);
+            plan.setArrangementJson(new ObjectMapper().writeValueAsString(map));
+            return planRepo.save(plan);
+        } catch (Exception e) {
+            throw new ApiException("json error");
+        }
     }
 
     @Override
-    public SeatingPlan getPlan(long planId) {
+    public SeatingPlan getPlan(Long planId) {
         return seatingPlanRepository.findById(planId)
                 .orElseThrow(() -> new ApiException("plan not found"));
     }
 
     @Override
-    public List<SeatingPlan> getPlansBySession(long sessionId) {
+    public List<SeatingPlan> getPlansBySession(Long sessionId) {
         return seatingPlanRepository.findByExamSessionId(sessionId);
     }
 }

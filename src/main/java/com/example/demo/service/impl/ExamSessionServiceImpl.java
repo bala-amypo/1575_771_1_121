@@ -27,7 +27,7 @@ public class ExamSessionServiceImpl implements ExamSessionService{
 
     public ExamSession createSession(ExamSession session){
         if (session.getExamDate().isBefore(LocalDate.now()))
-            throw new ApiException("Past date");
+            throw new ApiException("past");
 
         if (session.getStudents() == null || session.getStudents().isEmpty())
             throw new ApiException("at least 1 student required");

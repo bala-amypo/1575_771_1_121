@@ -27,7 +27,7 @@ public class ExamRoomServiceImpl implements ExamRoomService{
         if(examRoomRepository.findByRoomNumber(room.getRoomNumber()).isPresent()){
             throw new ApiException("exists");
         }
-        room.ens
+        room.ensureCapacityMatches();
         return examRoomRepository.save(room);
     }
 
