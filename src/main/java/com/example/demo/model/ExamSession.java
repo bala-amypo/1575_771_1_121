@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "exam_sessions")
 public class ExamSession{
@@ -29,6 +29,7 @@ public class ExamSession{
     joinColumns = @JoinColumn(name = "session_id"),
     inverseJoinColumns = @JoinColumn(name = "student_id")
 )
+@JsonIgnoreProperties("sessions")
     private Set<Student> students;
 
     public ExamSession(){
