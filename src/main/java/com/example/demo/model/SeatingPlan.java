@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
 @Entity
+@Table(name = "seating_plans")
 public class SeatingPlan{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,8 +28,10 @@ public class SeatingPlan{
     private LocalDateTime generatedAt;
 
     @PrePersist
-    public void onCreate(){
+    public void prePersist(){
+        if(generatedAt==null){
         generatedAt = LocalDateTime.now();
+        }
     }
 
     public SeatingPlan(){

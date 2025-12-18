@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 
 
 @Entity
+@Table(name = "exam_rooms")
 public class ExamRoom{
 
     @Id

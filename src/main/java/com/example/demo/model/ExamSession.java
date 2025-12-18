@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 
 @Entity
+@Table(name = "exam_sessions")
 public class ExamSession{
 
     @Id
