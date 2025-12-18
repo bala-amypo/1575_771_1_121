@@ -5,8 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+
 
 @Entity
 public class ExamRoom{
@@ -20,12 +19,6 @@ public class ExamRoom{
     private int columns;
     private int capacity;
 
-    @PrePersist @PreUpdate
-    public void ensureCapacityMatches(){
-        if(rows!=0 && columns!=0){
-        this.capacity = rows*columns;
-        }
-    }
     public ExamRoom(){
 
     }
