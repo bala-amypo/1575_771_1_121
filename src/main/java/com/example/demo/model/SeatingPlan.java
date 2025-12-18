@@ -19,8 +19,10 @@ public class SeatingPlan{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ExamSession examSession;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ExamRoom room;
     @Column(columnDefinition = "TEXT")
     private String arrangementJson;
