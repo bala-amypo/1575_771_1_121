@@ -21,6 +21,9 @@ public class ExamRoom{
     private int columns;
     private int capacity;
 
+    public void ensureCapacityMatches(){
+        this.capacity=rows*columns;
+    }
     public ExamRoom(){
 
     }

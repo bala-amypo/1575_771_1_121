@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -22,7 +22,7 @@ public class ExamSession{
     private LocalDate examDate;
     private String examTime;
     @ManyToMany
-    private List<Student> students;
+    private Set<Student> students;
 
     public ExamSession(){
 
