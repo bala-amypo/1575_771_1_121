@@ -29,7 +29,7 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
     @Override
     public SeatingPlan generatePlan(long sessionId) {
         ExamSession session = examSessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("ExamSession not found"));
+                .orElseThrow(() -> new RuntimeException("session not found"));
 
         SeatingPlan plan = new SeatingPlan();
         plan.setExamSession(session);
