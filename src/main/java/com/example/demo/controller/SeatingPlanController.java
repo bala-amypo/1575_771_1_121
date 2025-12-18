@@ -23,17 +23,17 @@ public class SeatingPlanController {
     }
 
     @PostMapping("/generate/{sessionId}")
-    public ResponseEntity<SeatingPlan> generateSeatingPlan(@PathVariable long sessionId){
+    public ResponseEntity<SeatingPlan> generateSeatingPlan(@PathVariable Long sessionId){
         return ResponseEntity.status(201).body(seatingPlanService.generatePlan(sessionId));
     }
 
     @GetMapping("/{planId}")
-    public ResponseEntity<SeatingPlan> getSeatingPlan(@PathVariable long planId){
+    public ResponseEntity<SeatingPlan> getSeatingPlan(@PathVariable Long planId){
         return ResponseEntity.status(200).body(seatingPlanService.getPlan(planId));
     }
 
     @GetMapping("/session/{sessionId}")
-    public ResponseEntity<List<SeatingPlan>> getListOfPlans(@PathVariable long sessionId){
+    public ResponseEntity<List<SeatingPlan>> getListOfPlans(@PathVariable Long sessionId){
         return ResponseEntity.status(200).body(seatingPlanService.getPlansBySession(sessionId));
     }
 

@@ -29,7 +29,7 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
     }
 
     @Override
-    public SeatingPlan generatePlan(long sessionId) {
+    public SeatingPlan generatePlan(Long sessionId) {
         
         Optional<ExamSession> sessionOpt = sessionRepo.findById(sessionId);
         if (!sessionOpt.isPresent()) {

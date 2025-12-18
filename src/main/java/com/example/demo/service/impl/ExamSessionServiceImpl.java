@@ -34,7 +34,7 @@ public class ExamSessionServiceImpl implements ExamSessionService{
         return examSessionRepository.save(session);
     }
 
-    public ExamSession getSession(long sessionId){
+    public ExamSession getSession(Long sessionId){
         return examSessionRepository.findById(sessionId).orElseThrow(()->new ApiException("Session not found"));
     }
     
