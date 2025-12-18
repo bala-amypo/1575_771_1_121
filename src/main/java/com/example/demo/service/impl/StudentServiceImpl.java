@@ -23,7 +23,7 @@ public class StudentServiceImpl implements StudentService{
     
     public Student addStudent(Student student){
         if(student.getRollNumber()==null||student.getYear()==null){
-            throw  new ApiException("Invalid student");
+            throw  new ApiException("invalid student");
         }
         if(student.getYear()<1 || student.getYear()>5){
             throw new ApiException("Invalid year");

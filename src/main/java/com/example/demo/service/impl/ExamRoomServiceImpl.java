@@ -22,11 +22,12 @@ public class ExamRoomServiceImpl implements ExamRoomService{
     @Override
     public ExamRoom addRoom(ExamRoom room){
         if(room.getRows()<=0||room.getColumns()<=0 || room.getCapacity()!=(room.getRows()*room.getColumns())){
-            throw new ApiException("Invalid room size");
+            throw new ApiException("invalid rows");
         }
         if(examRoomRepository.findByRoomNumber(room.getRoomNumber()).isPresent()){
-            throw new ApiException("Room already exists");
+            throw new ApiException("exists");
         }
+        room.ens
         return examRoomRepository.save(room);
     }
 
