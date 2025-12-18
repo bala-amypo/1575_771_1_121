@@ -25,7 +25,7 @@ public class ExamSessionController{
     }
 
     @GetMapping("/{sessionId}")
-    public ResponseEntity<ExamSession> getSession(@PathVariable long sessionId){
+    public ResponseEntity<ExamSession> getSession(@PathVariable Long sessionId){
         return ResponseEntity.status(200).body(examSessionService.getSession(sessionId));
     }
 }
