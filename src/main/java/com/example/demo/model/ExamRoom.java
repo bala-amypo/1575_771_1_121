@@ -21,8 +21,10 @@ public class ExamRoom{
     private Integer columns;
     private Integer capacity;
 
-    public void ensureCapacityMatches(){
-        this.capacity=rows*columns;
+    public void ensureCapacityMatches() {
+        if (this.rows != null && this.columns != null) {
+            this.capacity = this.rows * this.columns;
+        }
     }
     public ExamRoom(){
 
@@ -33,10 +35,10 @@ public class ExamRoom{
         this.rows = rows;
         this.columns = columns;
     }
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getRoomNumber() {
