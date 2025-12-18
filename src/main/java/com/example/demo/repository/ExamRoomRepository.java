@@ -10,5 +10,5 @@ import com.example.demo.model.ExamRoom;
 @Repository
 public interface ExamRoomRepository extends JpaRepository<ExamRoom, Long>{
     Optional<ExamRoom> findByRoomNumber(String roomNumber);
-    List<ExamRoom> findByCapacityGreaterThanEqual(Integer cap);
+    List<ExamRoom> findByCapacityGreaterThanEqual(int cap);
 }
