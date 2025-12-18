@@ -17,9 +17,9 @@ public class ExamRoom{
     private Long id;
     @Column(unique = true)
     private String roomNumber;
-    private int rows;
-    private int columns;
-    private int capacity;
+    private Integer rows;
+    private Integer columns;
+    private Integer capacity;
 
     public void ensureCapacityMatches(){
         this.capacity=rows*columns;
@@ -27,7 +27,7 @@ public class ExamRoom{
     public ExamRoom(){
 
     }
-    public ExamRoom(String roomNumber, int capacity, int rows, int columns) {
+    public ExamRoom(String roomNumber, Integer capacity, Integer rows, Integer columns) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         this.rows = rows;
@@ -45,22 +45,22 @@ public class ExamRoom{
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
-    public void setCapacity(int capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
-    public int getRows() {
+    public Integer getRows() {
         return rows;
     }
-    public void setRows(int rows) {
+    public void setRows(Integer rows) {
         this.rows = rows;
     }
-    public int getColumns() {
+    public Integer getColumns() {
         return columns;
     }
-    public void setColumns(int columns) {
+    public void setColumns(Integer columns) {
         this.columns = columns;
     }
 
