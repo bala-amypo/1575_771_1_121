@@ -10,13 +10,18 @@ import com.example.demo.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    // private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+        // this.passwordEncoder = passwordEncoder;
+    }
 
     public User register(User user){
         return userRepository.save(user);
     }
     public User findByEmail(String email){
-       return userRepository.findByEmail(email);
+       return userRepository.findByEmail(email).orElseThrow(()->new ApiException("user not found"));
     }
 }
