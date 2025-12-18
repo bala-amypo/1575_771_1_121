@@ -1,8 +1,8 @@
 package com.example.demo.model;
-jakarta.persistence.CascadeType
+import jakarta.persistence.CascadeType;
 import java.time.LocalDate;
 import java.util.Set;
-jakarta.persistence.Column
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
