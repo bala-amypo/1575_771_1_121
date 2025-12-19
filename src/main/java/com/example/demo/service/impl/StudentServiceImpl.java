@@ -27,10 +27,10 @@ public class StudentServiceImpl implements StudentService{
             throw  new ApiException("invalid student");
         }
         if(student.getYear()<1 || student.getYear()>5){
-            throw new ApiException("Invalid year");
+            throw new ApiException("year");
         }
         if(studentRepository.findByRollNumber(student.getRollNumber()).isPresent()){
-            throw new ApiException("Student already exists");
+            throw new ApiException("exists");
         }
         return studentRepository.save(student);
     }
