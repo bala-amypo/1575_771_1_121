@@ -30,7 +30,7 @@ public class ExamSessionServiceImpl implements ExamSessionService{
             throw new ApiException("past");
 
         if (session.getStudents() == null || session.getStudents().isEmpty())
-            throw new ApiException("at least 1 student required");
+            throw new ApiException("at least 1 student");
         return examSessionRepository.save(session);
     }
 
