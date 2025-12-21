@@ -10,8 +10,8 @@ import lombok.*;
 @Getter 
 @Setter
 @Builder
-@NoArgsConstructor // Required by JPA
-@AllArgsConstructor // Required by Lombok Builder
+@NoArgsConstructor 
+@AllArgsConstructor 
 public class User {
 
     @Id
