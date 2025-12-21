@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new ApiException("email exists");
         }
-        if (user.getRole() == null) {
+        if (user.getRole() == "") {
             user.setRole("STAFF");
         }
         // user.setPassword(passwordEncoder.encode(user.getPassword()));
