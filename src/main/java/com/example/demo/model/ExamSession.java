@@ -33,6 +33,13 @@
 //     @JsonIgnoreProperties("sessions")
 //     private Set<Student> students;
 // }
+package com.example.demo.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "exam_sessions")
@@ -47,6 +54,7 @@ public class ExamSession {
     private Long id;
 
     private String courseCode;
+
     private LocalDate examDate;
 
     @Column(name = "exam_session_time")
