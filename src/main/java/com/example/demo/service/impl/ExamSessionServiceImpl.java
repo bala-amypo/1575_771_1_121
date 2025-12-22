@@ -25,7 +25,7 @@ public class ExamSessionServiceImpl implements ExamSessionService{
         this.studentRepository = studentRepository;
     }
 
-    @Transactional
+@Transactional
 public ExamSession createSession(ExamSession session) {
 
     if (session.getExamDate().isBefore(LocalDate.now()))
@@ -36,24 +36,25 @@ public ExamSession createSession(ExamSession session) {
 
     ExamSession managedSession;
 
-    // 🔹 If session already exists → ADD students
+    // 🔹 CASE 1: UPDATE / ADD STUDENTS
     if (session.getId() != null) {
 
-        // managedSession = examSessionRepository.findById(session.getId())
-        //         .orElseThrow(() -> new ApiException("Session not found"));
+        managedSession = examSessionRepository.findById(session.getId())
+                .orElseThrow(() -> new ApiException("Session not found"));
 
-        // ADD students instead of replacing
+        // ADD students (do NOT replace)
         for (Student s : session.getStudents()) {
             managedSession.getStudents().add(s);
         }
 
-    } 
-    // 🔹 New session → save directly
-    else {
-        managedSession = session;
+        return managedSession; // dirty checking will save
+
     }
 
-    return examSessionRepository.save(managedSession);
+    // 🔹 CASE 2: CREATE NEW SESSION
+    return examSessionRepository.save(session);
+}
+
 }
 
 
