@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.*;
 import jakarta.persistence.*;
 import lombok.*;
 
