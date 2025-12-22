@@ -2,7 +2,7 @@ package com.example.demo.service.impl;
 
 import java.time.LocalDate;
 
-
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.ExamSessionRepository;
