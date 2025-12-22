@@ -28,6 +28,6 @@ public class User {
     @NotBlank
     private String password;
 
-    @Builder.Default // Ensures the default value is kept when using the builder
+    @Builder.Default 
     private String role = "STAFF";
 }
