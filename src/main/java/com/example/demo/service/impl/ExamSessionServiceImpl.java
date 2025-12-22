@@ -39,8 +39,8 @@ public ExamSession createSession(ExamSession session) {
     // 🔹 If session already exists → ADD students
     if (session.getId() != null) {
 
-        managedSession = examSessionRepository.findById(session.getId())
-                .orElseThrow(() -> new ApiException("Session not found"));
+        // managedSession = examSessionRepository.findById(session.getId())
+        //         .orElseThrow(() -> new ApiException("Session not found"));
 
         // ADD students instead of replacing
         for (Student s : session.getStudents()) {
