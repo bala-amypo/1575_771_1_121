@@ -25,6 +25,7 @@ public class ExamSessionServiceImpl implements ExamSessionService{
         this.studentRepository = studentRepository;
     }
 
+@Override
 @Transactional
 public ExamSession createSession(ExamSession session) {
 
@@ -36,24 +37,23 @@ public ExamSession createSession(ExamSession session) {
 
     ExamSession managedSession;
 
-    // 🔹 CASE 1: UPDATE / ADD STUDENTS
-    if (session.getId() != null) {
-
+    // CREATE if id is null or 0
+    if (session.getId() != null && session.getId() > 0) {
         managedSession = examSessionRepository.findById(session.getId())
                 .orElseThrow(() -> new ApiException("Session not found"));
 
-        // ADD students (do NOT replace)
+        // ADD students
         for (Student s : session.getStudents()) {
             managedSession.getStudents().add(s);
         }
 
         return managedSession; // dirty checking will save
-
     }
 
-    // 🔹 CASE 2: CREATE NEW SESSION
+    // NEW SESSION
     return examSessionRepository.save(session);
 }
+
 
 
 
