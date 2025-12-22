@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.util.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,11 +24,7 @@ public class Student {
     private String department;
     private Integer year;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-        name = "session_student_mapping",
-        joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "session_id")
-    )
+    @ManyToMany(mappedBy = "students")
+    @JsonIgnoreProperties("students")
     private Set<ExamSession> examSessions = new HashSet<>();
 }
