@@ -35,24 +35,25 @@ public ExamSession createSession(ExamSession session) {
     if (session.getStudents() == null || session.getStudents().isEmpty())
         throw new ApiException("at least 1 student");
 
-    ExamSession managedSession;
+    ExamSession managedSession = null;
 
-    // CREATE if id is null or 0
     if (session.getId() != null && session.getId() > 0) {
-        managedSession = examSessionRepository.findById(session.getId())
-                .orElseThrow(() -> new ApiException("Session not found"));
+        managedSession = examSessionRepository.findById(session.getId()).orElse(null);
+    }
 
-        // ADD students
+    if (managedSession == null) {
+        // Create new session
+        managedSession = session;
+    } else {
+        // Add students to existing session
         for (Student s : session.getStudents()) {
             managedSession.getStudents().add(s);
         }
-
-        return managedSession; // dirty checking will save
     }
 
-    // NEW SESSION
-    return examSessionRepository.save(session);
+    return examSessionRepository.save(managedSession);
 }
+
 
 
 
