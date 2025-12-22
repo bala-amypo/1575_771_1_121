@@ -21,4 +21,11 @@ public class Student {
     private String name;
     private String department;
     private Integer year;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+        name = "session_student_mapping",
+        joinColumns = @JoinColumn(name = "student_id"),
+        inverseJoinColumns = @JoinColumn(name = "session_id")
+    )
 }
