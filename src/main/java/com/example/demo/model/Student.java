@@ -24,6 +24,7 @@ public class Student {
     private String department;
     private Integer year;
 
+    @Builder.Default
     @ManyToMany(mappedBy = "students")
     @JsonIgnore
     private Set<ExamSession> examSessions = new HashSet<>();
