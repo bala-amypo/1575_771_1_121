@@ -26,7 +26,7 @@ public class ExamSessionServiceImpl implements ExamSessionService{
     }
 
     @Transactional
-public ExamSession saveOrUpdateSession(ExamSession session) {
+public ExamSession createSession(ExamSession session) {
 
     if (session.getExamDate().isBefore(LocalDate.now()))
         throw new ApiException("past");
