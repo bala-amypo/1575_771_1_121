@@ -30,6 +30,6 @@ public class ExamSession {
         joinColumns = @JoinColumn(name = "session_id"),
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
-    @JsonIgnoreProperties("sessions")
+    @JsonIgnoreProperties("examSessions")
     private Set<Student> students;
 }
