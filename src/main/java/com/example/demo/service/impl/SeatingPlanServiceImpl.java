@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class SeatingPlanServiceImpl implements SeatingPlanService {
 
-    // These are the names you defined
+    
     private final ExamSessionRepository examSessionRepository;
     private final SeatingPlanRepository seatingPlanRepository;
     private final ExamRoomRepository examRoomRepository;

@@ -42,10 +42,10 @@ public ExamSession createSession(ExamSession session) {
     }
 
     if (managedSession == null) {
-        // Create new session
+       
         managedSession = session;
     } else {
-        // Add students to existing session
+        
         for (Student s : session.getStudents()) {
             managedSession.getStudents().add(s);
         }
