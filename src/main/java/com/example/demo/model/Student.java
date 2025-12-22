@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +25,6 @@ public class Student {
     private Integer year;
 
     @ManyToMany(mappedBy = "students")
-    @JsonIgnoreProperties("students")
+    @JsonIgnore
     private Set<ExamSession> examSessions = new HashSet<>();
 }
