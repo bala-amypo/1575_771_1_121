@@ -8,8 +8,8 @@ public class StudentController {
 
     private final StudentService service;
 
-    public StudentController(StudentService s) {
-        this.service = s;
+    public StudentController(StudentService service) {
+        this.service = service;
     }
 
     public ResponseEntity<Student> add(Student s) {

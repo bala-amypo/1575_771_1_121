@@ -1,29 +1,40 @@
 package com.example.demo.controller;
 
-import jakarta.validation.Valid;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import com.example.demo.dto.*;
 import com.example.demo.model.User;
+import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 
-@RestController
-@RequestMapping("/auth")
-public class AuthController{
+public class AuthController {
+
     private final UserService userService;
+    private final AuthenticationManager authManager;
+    private final JwtTokenProvider jwt;
+    private final com.example.demo.repository.UserRepository repo;
 
-    public AuthController(UserService userService) {
-        this.userService = userService;
+    public AuthController(UserService us, AuthenticationManager am, JwtTokenProvider jwt,
+                          com.example.demo.repository.UserRepository repo) {
+        this.userService = us;
+        this.authManager = am;
+        this.jwt = jwt;
+        this.repo = repo;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User>register(@Valid @RequestBody User user){
-        return ResponseEntity.status(201).body(userService.register(user));
+    public ResponseEntity<?> register(RegisterRequest r) {
+        User u = User.builder()
+                .name(r.getName())
+                .email(r.getEmail())
+                .password(r.getPassword())
+                .role(r.getRole())
+                .build();
+        return ResponseEntity.ok(userService.register(u));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<User>login(@RequestBody User user){
-        return ResponseEntity.status(201).body(userService.findByEmail(user.getEmail()));
+    public ResponseEntity<AuthResponse> login(AuthRequest r) {
+        User u = userService.findByEmail(r.getEmail());
+        String token = jwt.generateToken(u.getId(), u.getEmail(), u.getRole());
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 }

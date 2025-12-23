@@ -1,42 +1,31 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
-import com.example.demo.service.StudentService;
-
-
-import com.example.demo.model.ExamRoom; 
-import com.example.demo.model.Student;
-import com.example.demo.repository.StudentRepository;
 import com.example.demo.exception.ApiException;
 import com.example.demo.model.Student;
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.service.StudentService;
 
-@Service
-public class StudentServiceImpl implements StudentService{
-    
-    private final StudentRepository studentRepository;
+import java.util.List;
 
-    public StudentServiceImpl(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+public class StudentServiceImpl implements StudentService {
+
+    private final StudentRepository repo;
+
+    public StudentServiceImpl(StudentRepository repo) {
+        this.repo = repo;
     }
-    
-    public Student addStudent(Student student){
-        if(student.getRollNumber()==null||student.getYear()==null){
-            throw  new ApiException("invalid student");
-        }
-        if(student.getYear()<1 || student.getYear()>5){
-            throw new ApiException("year");
-        }
-        if(studentRepository.findByRollNumber(student.getRollNumber()).isPresent()){
+
+    public Student addStudent(Student s) {
+        if (s.getRollNumber() == null)
+            throw new ApiException("roll required");
+        if (s.getYear() == null || s.getYear() < 1 || s.getYear() > 5)
+            throw new ApiException("year invalid");
+        if (repo.findByRollNumber(s.getRollNumber()).isPresent())
             throw new ApiException("exists");
-        }
-        return studentRepository.save(student);
+        return repo.save(s);
     }
 
-    public List<Student> getAllStudents(){
-        return studentRepository.findAll();
+    public List<Student> getAllStudents() {
+        return repo.findAll();
     }
-
 }

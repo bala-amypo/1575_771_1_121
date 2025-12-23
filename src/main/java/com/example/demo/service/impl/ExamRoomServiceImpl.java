@@ -1,39 +1,30 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
+import com.example.demo.exception.ApiException;
 import com.example.demo.model.ExamRoom;
 import com.example.demo.repository.ExamRoomRepository;
 import com.example.demo.service.ExamRoomService;
 
-import com.example.demo.exception.ApiException;
+import java.util.List;
 
-@Service
-public class ExamRoomServiceImpl implements ExamRoomService{
+public class ExamRoomServiceImpl implements ExamRoomService {
 
-    private final ExamRoomRepository examRoomRepository;
+    private final ExamRoomRepository repo;
 
-    public ExamRoomServiceImpl(ExamRoomRepository examRoomRepository) {
-        this.examRoomRepository = examRoomRepository;
+    public ExamRoomServiceImpl(ExamRoomRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public ExamRoom addRoom(ExamRoom room){
-        if(room.getRows()<=0||room.getColumns()<=0){
-            throw new ApiException("invalid rows");
-        }
-        if(examRoomRepository.findByRoomNumber(room.getRoomNumber()).isPresent()){
+    public ExamRoom addRoom(ExamRoom r) {
+        if (repo.findByRoomNumber(r.getRoomNumber()).isPresent())
             throw new ApiException("exists");
-        }
-        room.ensureCapacityMatches();
-        return examRoomRepository.save(room);
+        if (r.getRows() <= 0 || r.getColumns() <= 0)
+            throw new ApiException("invalid");
+        r.ensureCapacityMatches();
+        return repo.save(r);
     }
 
-    @Override
-    public List<ExamRoom> getAllRooms(){
-        return examRoomRepository.findAll();
+    public List<ExamRoom> getAllRooms() {
+        return repo.findAll();
     }
-    
 }

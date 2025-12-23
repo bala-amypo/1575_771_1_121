@@ -1,31 +1,22 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import jakarta.validation.Valid;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.ExamRoom;
 import com.example.demo.service.ExamRoomService;
+import org.springframework.http.ResponseEntity;
 
-@RestController
-@RequestMapping("/rooms")
-public class ExamRoomController{
+public class ExamRoomController {
 
-    private final ExamRoomService examRoomService;
+    private final ExamRoomService service;
 
-    public ExamRoomController(ExamRoomService examRoomService) {
-        this.examRoomService = examRoomService;
-    }
-    @PostMapping
-    public ResponseEntity<ExamRoom> addRoom(@Valid @RequestBody ExamRoom examRoom){
-        return ResponseEntity.status(201).body(examRoomService.addRoom(examRoom));
+    public ExamRoomController(ExamRoomService service) {
+        this.service = service;
     }
 
-    @GetMapping
-    public ResponseEntity<List<ExamRoom>> listRooms(){
-        return ResponseEntity.status(200).body(examRoomService.getAllRooms());
+    public ResponseEntity<ExamRoom> add(ExamRoom r) {
+        return ResponseEntity.ok(service.addRoom(r));
+    }
+
+    public ResponseEntity<?> list() {
+        return ResponseEntity.ok(service.getAllRooms());
     }
 }

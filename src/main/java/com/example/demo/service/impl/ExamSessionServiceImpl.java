@@ -1,66 +1,30 @@
 package com.example.demo.service.impl;
-import com.example.demo.model.Student;
-import java.time.LocalDate;
-
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Service;
-
-import com.example.demo.repository.ExamSessionRepository;
-import com.example.demo.repository.StudentRepository;
-import com.example.demo.service.ExamSessionService;
 
 import com.example.demo.exception.ApiException;
-
 import com.example.demo.model.ExamSession;
+import com.example.demo.repository.ExamSessionRepository;
+import com.example.demo.service.ExamSessionService;
 
+import java.time.LocalDate;
 
-@Service
-public class ExamSessionServiceImpl implements ExamSessionService{
+public class ExamSessionServiceImpl implements ExamSessionService {
 
-    private final ExamSessionRepository examSessionRepository;
-    private final StudentRepository studentRepository;
+    private final ExamSessionRepository repo;
 
-    public ExamSessionServiceImpl(ExamSessionRepository examSessionRepository, StudentRepository studentRepository) {
-        this.examSessionRepository = examSessionRepository;
-        this.studentRepository = studentRepository;
+    public ExamSessionServiceImpl(ExamSessionRepository repo, Object ignored) {
+        this.repo = repo;
     }
 
-@Override
-@Transactional
-public ExamSession createSession(ExamSession session) {
-
-    if (session.getExamDate().isBefore(LocalDate.now()))
-        throw new ApiException("past");
-
-    if (session.getStudents() == null || session.getStudents().isEmpty())
-        throw new ApiException("at least 1 student");
-
-    ExamSession managedSession = null;
-
-    if (session.getId() != null && session.getId() > 0) {
-        managedSession = examSessionRepository.findById(session.getId()).orElse(null);
+    public ExamSession createSession(ExamSession s) {
+        if (s.getExamDate().isBefore(LocalDate.now()))
+            throw new ApiException("past");
+        if (s.getStudents() == null || s.getStudents().isEmpty())
+            throw new ApiException("at least 1 student");
+        return repo.save(s);
     }
 
-    if (managedSession == null) {
-       
-        managedSession = session;
-    } else {
-        
-        for (Student s : session.getStudents()) {
-            managedSession.getStudents().add(s);
-        }
+    public ExamSession getSession(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new ApiException("session not found"));
     }
-
-    return examSessionRepository.save(managedSession);
-}
-
-
-
-
-
-
-    public ExamSession getSession(Long sessionId){
-        return examSessionRepository.findById(sessionId).orElseThrow(()->new ApiException("Session not found"));
-    }
-    
 }
