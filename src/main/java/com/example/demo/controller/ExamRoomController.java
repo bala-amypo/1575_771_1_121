@@ -3,7 +3,12 @@ package com.example.demo.controller;
 import com.example.demo.model.ExamRoom;
 import com.example.demo.service.ExamRoomService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RestController
+@RequestMapping("/rooms")
 public class ExamRoomController {
 
     private final ExamRoomService service;
@@ -12,11 +17,14 @@ public class ExamRoomController {
         this.service = service;
     }
 
-    public ResponseEntity<ExamRoom> add(ExamRoom r) {
-        return ResponseEntity.ok(service.addRoom(r));
+    @PostMapping
+    public ResponseEntity<ExamRoom> add(@RequestBody ExamRoom room) {
+        return ResponseEntity.ok(service.addRoom(room));
     }
 
-    public ResponseEntity<?> list() {
+    // 🔥 IMPORTANT FIX HERE
+    @GetMapping
+    public ResponseEntity<List<ExamRoom>> list() {
         return ResponseEntity.ok(service.getAllRooms());
     }
 }

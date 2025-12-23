@@ -3,7 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/sessions")
 public class ExamSessionController {
 
     private final ExamSessionService service;
@@ -12,11 +15,13 @@ public class ExamSessionController {
         this.service = service;
     }
 
-    public ResponseEntity<ExamSession> create(ExamSession s) {
-        return ResponseEntity.ok(service.createSession(s));
+    @PostMapping
+    public ResponseEntity<ExamSession> create(@RequestBody ExamSession session) {
+        return ResponseEntity.ok(service.createSession(session));
     }
 
-    public ResponseEntity<ExamSession> get(Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ExamSession> get(@PathVariable Long id) {
         return ResponseEntity.ok(service.getSession(id));
     }
 }
