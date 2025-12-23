@@ -29,6 +29,11 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    // ✅ ADD THIS (fixes your error)
+    public String generateToken(Long userId, String email, String role) {
+        return createToken(email, userId, role);
+    }
+
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
