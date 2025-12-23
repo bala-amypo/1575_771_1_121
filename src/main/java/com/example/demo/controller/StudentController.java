@@ -1,33 +1,22 @@
-
 package com.example.demo.controller;
-
-import java.util.List;
-
-import jakarta.validation.Valid;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.Student;
 import com.example.demo.service.StudentService;
+import org.springframework.http.ResponseEntity;
 
-@RestController
-@RequestMapping("/students")
-public class StudentController{
+public class StudentController {
 
-    private final StudentService studentService;
+    private final StudentService service;
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    public StudentController(StudentService s) {
+        this.service = s;
     }
 
-    @PostMapping
-    public ResponseEntity<Student>add(@Valid @RequestBody Student student){
-        return ResponseEntity.status(201).body(studentService.addStudent(student));
+    public ResponseEntity<Student> add(Student s) {
+        return ResponseEntity.ok(service.addStudent(s));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Student>> list(){
-        return ResponseEntity.status(200).body(studentService.getAllStudents());
+    public ResponseEntity<?> list() {
+        return ResponseEntity.ok(service.getAllStudents());
     }
 }
