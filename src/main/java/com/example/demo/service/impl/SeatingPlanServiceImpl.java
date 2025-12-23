@@ -30,6 +30,7 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     @Override
     public SeatingPlan generatePlan(Long sessionId) {
+
         ExamSession session = sessionRepo.findById(sessionId)
                 .orElseThrow(() -> new ApiException("Session not found"));
 
@@ -40,11 +41,22 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
         ExamRoom room = rooms.get(0);
 
+        // 🔥 IMPORTANT FIX: include student roll numbers
+        StringBuilder arrangement = new StringBuilder("{\"students\":[");
+        int i = 0;
+        for (var student : session.getStudents()) {
+            if (i++ > 0) arrangement.append(",");
+            arrangement.append("\"")
+                       .append(student.getRollNumber())
+                       .append("\"");
+        }
+        arrangement.append("]}");
+
         SeatingPlan plan = new SeatingPlan();
         plan.setExamSession(session);
         plan.setRoom(room);
         plan.setGeneratedAt(LocalDateTime.now());
-        plan.setArrangementJson("{\"assigned\":true}");
+        plan.setArrangementJson(arrangement.toString());
 
         return planRepo.save(plan);
     }
