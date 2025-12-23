@@ -1,54 +1,61 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.exception.ApiException;
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
+import com.example.demo.model.ExamRoom;
+import com.example.demo.model.ExamSession;
+import com.example.demo.model.SeatingPlan;
+import com.example.demo.repository.ExamRoomRepository;
+import com.example.demo.repository.ExamSessionRepository;
+import com.example.demo.repository.SeatingPlanRepository;
 import com.example.demo.service.SeatingPlanService;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
+@Service
 public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     private final ExamSessionRepository sessionRepo;
     private final SeatingPlanRepository planRepo;
     private final ExamRoomRepository roomRepo;
 
-    public SeatingPlanServiceImpl(ExamSessionRepository s, SeatingPlanRepository p, ExamRoomRepository r) {
-        this.sessionRepo = s;
-        this.planRepo = p;
-        this.roomRepo = r;
+    public SeatingPlanServiceImpl(ExamSessionRepository sessionRepo,
+                                  SeatingPlanRepository planRepo,
+                                  ExamRoomRepository roomRepo) {
+        this.sessionRepo = sessionRepo;
+        this.planRepo = planRepo;
+        this.roomRepo = roomRepo;
     }
 
+    @Override
     public SeatingPlan generatePlan(Long sessionId) {
         ExamSession session = sessionRepo.findById(sessionId)
-                .orElseThrow(() -> new ApiException("session not found"));
+                .orElseThrow(() -> new ApiException("Session not found"));
 
         List<ExamRoom> rooms = roomRepo.findAll();
-        if (rooms.isEmpty())
-            throw new ApiException("no room");
+        if (rooms.isEmpty()) {
+            throw new ApiException("No room available");
+        }
 
         ExamRoom room = rooms.get(0);
 
-        Map<String, String> map = new HashMap<>();
-        for (Student s : session.getStudents()) {
-            map.put(s.getRollNumber(), room.getRoomNumber());
-        }
+        SeatingPlan plan = new SeatingPlan();
+        plan.setExamSession(session);
+        plan.setRoom(room);
+        plan.setGeneratedAt(LocalDateTime.now());
+        plan.setArrangementJson("{\"assigned\":true}");
 
-        SeatingPlan p = new SeatingPlan();
-        p.setExamSession(session);
-        p.setRoom(room);
-        p.setArrangementJson(map.toString());
-        p.setGeneratedAt(LocalDateTime.now());
-
-        return planRepo.save(p);
+        return planRepo.save(plan);
     }
 
+    @Override
     public SeatingPlan getPlan(Long id) {
         return planRepo.findById(id)
-                .orElseThrow(() -> new ApiException("plan not found"));
+                .orElseThrow(() -> new ApiException("Plan not found"));
     }
 
+    @Override
     public List<SeatingPlan> getPlansBySession(Long sessionId) {
         return planRepo.findByExamSessionId(sessionId);
     }
