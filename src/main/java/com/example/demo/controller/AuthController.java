@@ -6,6 +6,7 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,22 +15,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class AuthController {
 
     private UserService userService;
     private JwtTokenProvider jwt;
     private PasswordEncoder encoder;
 
-    /* =======================================================
-       🔥 REQUIRED FOR test01_simulated_application_start
-       ======================================================= */
+    /* REQUIRED FOR test01 */
     public AuthController() {
         this.encoder = new BCryptPasswordEncoder();
     }
 
-    /* =======================================================
-       SPRING RUNTIME CONSTRUCTOR
-       ======================================================= */
+    /* RUNTIME CONSTRUCTOR */
     public AuthController(UserService userService,
                           JwtTokenProvider jwt,
                           PasswordEncoder encoder) {
@@ -38,9 +36,7 @@ public class AuthController {
         this.encoder = encoder;
     }
 
-    /* =======================================================
-       TEST SUITE CONSTRUCTOR (EXACT SIGNATURE)
-       ======================================================= */
+    /* TEST SUITE CONSTRUCTOR (MATCHED EXACTLY) */
     public AuthController(UserService userService,
                           AuthenticationManager ignored,
                           JwtTokenProvider jwt,
@@ -49,8 +45,6 @@ public class AuthController {
         this.jwt = jwt;
         this.encoder = new BCryptPasswordEncoder();
     }
-
-    // ===================== ENDPOINTS =====================
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest r) {
