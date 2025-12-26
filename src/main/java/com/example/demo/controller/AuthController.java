@@ -5,11 +5,10 @@ import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @RestController
@@ -20,49 +19,43 @@ public class AuthController {
     private final JwtTokenProvider jwt;
     private final PasswordEncoder encoder;
 
-    // ===== Normal Spring Runtime =====
+    // ✅ SINGLE constructor — Spring-friendly
     public AuthController(UserService userService,
-                          JwtTokenProvider jwtTokenProvider,
-                          PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.jwt = jwtTokenProvider;
-        this.encoder = passwordEncoder;
-    }
+                          JwtTokenProvider jwt,
+                          PasswordEncoder encoder) {
 
-    // ===== Hidden Test Constructor =====
-    public AuthController(UserService userService,
-                          AuthenticationManager ignored,
-                          JwtTokenProvider jwtTokenProvider,
-                          Object ignoredRepo) {
         this.userService = userService;
-        this.jwt = jwtTokenProvider;
-        this.encoder = null; // tests never hash
+        this.jwt = jwt;
+        this.encoder = encoder;
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest r) {
-        User user = User.builder()
+
+        User u = User.builder()
                 .name(r.getName())
                 .email(r.getEmail())
                 .password(r.getPassword())
                 .role(r.getRole())
                 .build();
-        return ResponseEntity.ok(userService.register(user));
+
+        return ResponseEntity.ok(userService.register(u));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest r) {
-        User user = userService.findByEmail(r.getEmail());
 
-        if (encoder != null && !encoder.matches(r.getPassword(), user.getPassword())) {
+        User u = userService.findByEmail(r.getEmail());
+
+        if (!encoder.matches(r.getPassword(), u.getPassword())) {
             return ResponseEntity.status(401).build();
         }
 
         String token = jwt.generateToken(
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
-        );
+                u.getId(),
+                u.getEmail(),
+                u.getRole());
+
         return ResponseEntity.ok(new AuthResponse(token));
     }
 }
