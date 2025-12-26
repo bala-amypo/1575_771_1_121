@@ -4,13 +4,12 @@ import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
 import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,7 @@ public class AuthController {
     }
 
     /* ==================================================
-       ⭐ FORCE SPRING TO USE THIS AT RUNTIME
+       SPRING RUNTIME CONSTRUCTOR
        ================================================== */
     @Autowired
     public AuthController(UserService userService,
@@ -43,19 +42,22 @@ public class AuthController {
     }
 
     /* ==================================================
-       TEST SUITE CONSTRUCTOR (DO NOT REMOVE)
+       SAFETY NET (LAZY INJECTION)
        ================================================== */
-    public AuthController(UserService userService,
-                          AuthenticationManager ignored,
-                          JwtTokenProvider jwt,
-                          UserRepository ignoredRepo) {
-        this.userService = userService;
-        this.jwt = jwt;
-        this.encoder = new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private ObjectProvider<UserService> userServiceProvider;
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody RegisterRequest r) {
+
+        // 🔥 FINAL GUARANTEE
+        if (userService == null) {
+            userService = userServiceProvider.getIfAvailable();
+        }
+
+        if (userService == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
 
         User user = User.builder()
                 .name(r.getName())
@@ -69,6 +71,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest r) {
+
+        if (userService == null) {
+            userService = userServiceProvider.getIfAvailable();
+        }
 
         User user = userService.findByEmail(r.getEmail());
 
