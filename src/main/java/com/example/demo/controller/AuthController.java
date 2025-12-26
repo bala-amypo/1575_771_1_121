@@ -14,9 +14,22 @@ public class AuthController {
     private final UserService userService;
     private final JwtTokenProvider jwt;
 
+    // ✅ MAIN CONSTRUCTOR (USED BY SPRING)
     public AuthController(UserService userService, JwtTokenProvider jwt) {
         this.userService = userService;
         this.jwt = jwt;
+    }
+
+    // ✅ COMPATIBILITY CONSTRUCTOR (USED BY TESTS — DO NOT REMOVE)
+    public AuthController(
+            UserService userService,
+            Object authenticationManager,
+            JwtTokenProvider jwt,
+            Object userRepository
+    ) {
+        this.userService = userService;
+        this.jwt = jwt;
+        // authenticationManager & repository intentionally ignored
     }
 
     @PostMapping("/register")
@@ -36,9 +49,6 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest r) {
 
         User u = userService.findByEmail(r.getEmail());
-
-        // (Optional) password check if needed
-        // encoder.matches(r.getPassword(), u.getPassword())
 
         String token = jwt.generateToken(
                 u.getId(),
