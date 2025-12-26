@@ -7,8 +7,8 @@ import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,16 +22,12 @@ public class AuthController {
     private JwtTokenProvider jwt;
     private PasswordEncoder encoder;
 
-    /* ==================================================
-       REQUIRED FOR test01_simulated_application_start
-       ================================================== */
+    // REQUIRED FOR test01_simulated_application_start
     public AuthController() {
         this.encoder = new BCryptPasswordEncoder();
     }
 
-    /* ==================================================
-       SPRING RUNTIME CONSTRUCTOR
-       ================================================== */
+    // USED BY SPRING AT RUNTIME
     @Autowired
     public AuthController(UserService userService,
                           JwtTokenProvider jwt,
@@ -41,22 +37,13 @@ public class AuthController {
         this.encoder = encoder;
     }
 
-    /* ==================================================
-       SAFETY NET (LAZY INJECTION)
-       ================================================== */
-    @Autowired
-    private ObjectProvider<UserService> userServiceProvider;
-
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest r) {
-
-        // 🔥 FINAL GUARANTEE
-        if (userService == null) {
-            userService = userServiceProvider.getIfAvailable();
-        }
+    public ResponseEntity<?> register(@RequestBody RegisterRequest r) {
 
         if (userService == null) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Service not initialized");
         }
 
         User user = User.builder()
@@ -70,10 +57,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest r) {
+    public ResponseEntity<?> login(@RequestBody AuthRequest r) {
 
-        if (userService == null) {
-            userService = userServiceProvider.getIfAvailable();
+        if (userService == null || jwt == null) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Service not initialized");
         }
 
         User user = userService.findByEmail(r.getEmail());
