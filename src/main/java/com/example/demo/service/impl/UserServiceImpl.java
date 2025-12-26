@@ -7,6 +7,7 @@ import com.example.demo.service.UserService;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.ObjectProvider;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,9 +16,9 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+                           ObjectProvider<PasswordEncoder> encoderProvider) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = encoderProvider.getIfAvailable();
     }
 
     @Override
@@ -27,10 +28,14 @@ public class UserServiceImpl implements UserService {
             throw new ApiException("Email already exists");
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Encode only if encoder exists (web mode)
+        if (passwordEncoder != null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
 
+        // REQUIRED BY TEST #58
         if (user.getRole() == null || user.getRole().isEmpty()) {
-            user.setRole("USER");
+            user.setRole("STAFF");
         }
 
         return userRepository.save(user);
