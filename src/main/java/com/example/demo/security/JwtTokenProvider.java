@@ -16,8 +16,8 @@ public class JwtTokenProvider {
     private final long validityInMs;
 
     public JwtTokenProvider(
-            @Value("${jwt.secret}") String secret,
-            @Value("${jwt.expiration}") long validityInMs) {
+            @Value("${jwt.secret:DefaultJwtSecretKeyMustBeAtLeast32Chars!}") String secret,
+            @Value("${jwt.expiration:3600000}") long validityInMs) {
 
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.validityInMs = validityInMs;
@@ -42,10 +42,7 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
@@ -53,22 +50,11 @@ public class JwtTokenProvider {
     }
 
     public String getEmailFromToken(String token) {
-        return getClaims(token).getSubject();
-    }
-
-    public String getRoleFromToken(String token) {
-        return getClaims(token).get("role", String.class);
-    }
-
-    public Long getUserIdFromToken(String token) {
-        return getClaims(token).get("userId", Long.class);
-    }
-
-    private Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
-                .getBody();
+                .getBody()
+                .getSubject();
     }
 }
