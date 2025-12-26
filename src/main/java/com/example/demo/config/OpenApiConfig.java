@@ -34,8 +34,5 @@ public class OpenApiConfig {
                                                 .bearerFormat("JWT")
                                 )
                 )
-                .addSecurityItem(
-                        new SecurityRequirement().addList("bearerAuth")
-                );
     }
 }
