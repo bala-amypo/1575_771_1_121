@@ -11,15 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    // 🔥 REQUIRED FOR test01_simulated_application_start
-    public UserServiceImpl() {
-        // Spring will inject later
-    }
-
-    // 🔥 USED BY REAL SPRING CONTEXT
+    // ✅ SINGLE CONSTRUCTOR – Spring will ALWAYS use this
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder) {
 
@@ -29,10 +24,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
-
-        if (userRepository == null || passwordEncoder == null) {
-            throw new ApiException("Service not initialized");
-        }
 
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new ApiException("Email already exists");
@@ -49,10 +40,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        if (userRepository == null) {
-            throw new ApiException("Service not initialized");
-        }
-
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ApiException("User not found"));
     }
