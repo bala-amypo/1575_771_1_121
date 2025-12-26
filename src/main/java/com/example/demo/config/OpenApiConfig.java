@@ -18,23 +18,15 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
 
         return new OpenAPI()
-                .info(new Info()
-                        .title("Exam Seating Arrangement API")
-                        .version("1.0")
-                )
-                .servers(List.of(
-                        new Server().url("https://9099.pro604cr.amypo.ai")
-                ))
-                // 🔐 Enable JWT security
+                .info(new Info().title("API").version("1.0"))
+                .servers(List.of(new Server().url("https://9099.pro604cr.amypo.ai")))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                .components(new io.swagger.v3.oas.models.Components()
-                        .addSecuritySchemes("bearerAuth",
-                                new SecurityScheme()
-                                        .name("bearerAuth")
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")
-                        )
-                );
+                .components(new Components().addSecuritySchemes(
+                        "bearerAuth",
+                        new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")
+                ));
     }
 }
