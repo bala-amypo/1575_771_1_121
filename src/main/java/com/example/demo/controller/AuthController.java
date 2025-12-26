@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 
-@ConditionalOnWebApplication   // ⭐ KEY FIX for test01
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
