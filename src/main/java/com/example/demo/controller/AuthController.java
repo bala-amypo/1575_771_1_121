@@ -6,7 +6,6 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,16 +21,15 @@ public class AuthController {
     private PasswordEncoder encoder;
 
     /* =======================================================
-       REQUIRED FOR test01_simulated_application_start
+       🔥 REQUIRED FOR test01_simulated_application_start
        ======================================================= */
     public AuthController() {
         this.encoder = new BCryptPasswordEncoder();
     }
 
     /* =======================================================
-       ✅ SPRING RUNTIME CONSTRUCTOR (FORCE SPRING TO USE THIS)
+       SPRING RUNTIME CONSTRUCTOR
        ======================================================= */
-    @Autowired
     public AuthController(UserService userService,
                           JwtTokenProvider jwt,
                           PasswordEncoder encoder) {
