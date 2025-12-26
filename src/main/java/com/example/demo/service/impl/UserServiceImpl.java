@@ -5,7 +5,7 @@ import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 
-import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,22 +15,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    /* ======================================================
-       SPRING CONSTRUCTOR (ObjectProvider)
-       ====================================================== */
-    public UserServiceImpl(UserRepository userRepository,
-                           ObjectProvider<PasswordEncoder> encoderProvider) {
-
-        this.userRepository = userRepository;
-        this.passwordEncoder = encoderProvider.getIfAvailable();
-    }
-
-    /* ======================================================
-       TEST CONSTRUCTOR (DIRECT PasswordEncoder)
-       ====================================================== */
+    @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder) {
-
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -42,13 +29,10 @@ public class UserServiceImpl implements UserService {
             throw new ApiException("Email already exists");
         }
 
-        if (passwordEncoder != null) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // REQUIRED BY TEST #58
         if (user.getRole() == null || user.getRole().isEmpty()) {
-            user.setRole("STAFF");
+            user.setRole("STAFF"); // matches tests
         }
 
         return userRepository.save(user);
