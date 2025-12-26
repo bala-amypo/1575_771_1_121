@@ -6,14 +6,13 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -23,8 +22,9 @@ public class AuthController {
     private final PasswordEncoder encoder;
 
     /* =======================================================
-       SPRING RUNTIME CONSTRUCTOR
+       SPRING RUNTIME CONSTRUCTOR (USE THIS)
        ======================================================= */
+    @Autowired
     public AuthController(UserService userService,
                           JwtTokenProvider jwt,
                           PasswordEncoder encoder) {
@@ -35,7 +35,7 @@ public class AuthController {
     }
 
     /* =======================================================
-       TEST SUITE CONSTRUCTOR (EXACT MATCH REQUIRED)
+       TEST SUITE CONSTRUCTOR (EXACT SIGNATURE REQUIRED)
        ======================================================= */
     public AuthController(UserService userService,
                           AuthenticationManager ignored,
@@ -44,7 +44,7 @@ public class AuthController {
 
         this.userService = userService;
         this.jwt = jwt;
-        this.encoder = new BCryptPasswordEncoder(); // safe default
+        this.encoder = new BCryptPasswordEncoder(); // safe for tests
     }
 
     @PostMapping("/register")
