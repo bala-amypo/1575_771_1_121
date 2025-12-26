@@ -11,29 +11,22 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repo;
+    private final PasswordEncoder encoder;
 
-    // ✅ Constructor used by Spring
-    public UserServiceImpl(UserRepository repo) {
-        this.repo = repo;
-    }
-
-    // ✅ Constructor used by TESTS (encoder ignored)
     public UserServiceImpl(UserRepository repo, PasswordEncoder encoder) {
         this.repo = repo;
+        this.encoder = encoder;
     }
 
     @Override
     public User register(User user) {
-        repo.findByEmail(user.getEmail())
-                .ifPresent(u -> {
-                    throw new ApiException("Email exists");
-                });
-
+        if (repo.findByEmail(user.getEmail()).isPresent()) {
+            throw new ApiException("Email already exists");
+        }
+        user.setPassword(encoder.encode(user.getPassword()));
         if (user.getRole() == null) {
             user.setRole("STAFF");
         }
-
-        // No encoding (intentional – tests expect plain text)
         return repo.save(user);
     }
 
