@@ -26,6 +26,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
+                        "/",                 // ✅ allow root
+                        "/error",            // ✅ avoid default error 403 loop
                         "/auth/**",
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
