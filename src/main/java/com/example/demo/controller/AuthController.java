@@ -19,19 +19,13 @@ import org.springframework.web.bind.annotation.*;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @RestController
 @RequestMapping("/auth")
-
-// 🔴 THIS IS THE KEY: disable inherited security for this controller
-@SecurityRequirement(name = "")
 public class AuthController {
 
-    private UserService userService;
-    private JwtTokenProvider jwt;
-    private PasswordEncoder encoder;
+    private final UserService userService;
+    private final JwtTokenProvider jwt;
+    private final PasswordEncoder encoder;
 
-    // REQUIRED for test01_simulated_application_start
-    public AuthController() {}
-
-    // Spring runtime
+    // 🔹 NORMAL SPRING RUNTIME
     public AuthController(UserService userService,
                           JwtTokenProvider jwt,
                           PasswordEncoder encoder) {
@@ -40,7 +34,7 @@ public class AuthController {
         this.encoder = encoder;
     }
 
-    // Test constructor (exact match)
+    // 🔹 EXACT CONSTRUCTOR REQUIRED BY TEST
     public AuthController(UserService userService,
                           AuthenticationManager ignored,
                           JwtTokenProvider jwt,
@@ -50,10 +44,8 @@ public class AuthController {
         this.encoder = new BCryptPasswordEncoder();
     }
 
-    // 🔓 NO LOCK
-    @Operation(summary = "Register user", security = {})
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest r) {
+    public ResponseEntity<User> register(@RequestBody RegisterRequest r) {
 
         User u = User.builder()
                 .name(r.getName())
@@ -65,8 +57,6 @@ public class AuthController {
         return ResponseEntity.ok(userService.register(u));
     }
 
-    // 🔓 NO LOCK
-    @Operation(summary = "Login user", security = {})
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest r) {
 
