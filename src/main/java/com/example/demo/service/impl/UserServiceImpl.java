@@ -1,15 +1,26 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.exception.ApiException;
+import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
-    // ✅ REQUIRED for Spring context startup
+    // ✅ Required so Spring context can start in test01_simulated_application_start
     public UserServiceImpl() {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    // ✅ Used by tests
+    // ✅ Used by tests & normal DI
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -26,7 +37,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         if (user.getRole() == null || user.getRole().isBlank()) {
-            user.setRole("STAFF"); // ✅ matches tests
+            user.setRole("STAFF"); // ✔ matches test58
         }
 
         return userRepository.save(user);
