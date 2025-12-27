@@ -1,9 +1,10 @@
 package com.example.demo.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter @Setter
-@AllArgsConstructor
-public class AuthResponse {
-    private String token;
+public class AuthRequest {
+    private String email;
+    private String password;
 }
