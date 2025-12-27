@@ -24,7 +24,7 @@ public class JwtTokenProvider {
         this.validityInMs = validityInMs;
     }
 
-    // ================== TOKEN GENERATION ==================
+    
     public String generateToken(Long userId, String email, String role) {
 
         Claims claims = Jwts.claims().setSubject(email);
@@ -42,7 +42,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // ================== VALIDATION ==================
+    
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
@@ -52,7 +52,7 @@ public class JwtTokenProvider {
         }
     }
 
-    // ================== REQUIRED BY TESTS ==================
+   
 
     public String getEmailFromToken(String token) {
         return getClaims(token).getSubject();
@@ -66,7 +66,7 @@ public class JwtTokenProvider {
         return getClaims(token).get("userId", Long.class);
     }
 
-    // ================== INTERNAL ==================
+    
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
