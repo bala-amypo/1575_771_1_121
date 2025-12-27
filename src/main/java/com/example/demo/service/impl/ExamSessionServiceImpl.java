@@ -36,7 +36,7 @@ public ExamSession createSession(ExamSession session) {
         throw new ApiException("At least 1 student required");
     }
 
-    // ✅ CHECK IF RECORD REALLY EXISTS IN DATABASE
+
     if (session.getId() != null && repo.existsById(session.getId())) {
 
         ExamSession existing = repo.findById(session.getId()).get();
@@ -52,7 +52,7 @@ public ExamSession createSession(ExamSession session) {
         return repo.save(existing);
     }
 
-    // ✅ BRAND NEW SESSION
+
     return repo.save(session);
 }
 
