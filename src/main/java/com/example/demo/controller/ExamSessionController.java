@@ -19,7 +19,7 @@ public class ExamSessionController {
 
     @PostMapping
     public ResponseEntity<ExamSession> create(@RequestBody ExamSession session) {
-        return ResponseEntity.ok(service.createSession(session));
+        return ResponseEntity.status(201).body(service.createSession(session));
     }
 
     @GetMapping("/{id}")
