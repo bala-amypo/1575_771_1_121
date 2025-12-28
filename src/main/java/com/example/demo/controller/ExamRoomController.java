@@ -21,10 +21,10 @@ public class ExamRoomController {
 
     @PostMapping
     public ResponseEntity<ExamRoom> add(@RequestBody ExamRoom room) {
-        return ResponseEntity.ok(service.addRoom(room));
+        return ResponseEntity.status(201).body(service.addRoom(room));
     }
 
-    // 🔥 IMPORTANT FIX HERE
+  
     @GetMapping
     public ResponseEntity<List<ExamRoom>> list() {
         return ResponseEntity.ok(service.getAllRooms());

@@ -21,7 +21,7 @@ public class SeatingPlanController {
 
     @PostMapping("/{sessionId}")
     public ResponseEntity<SeatingPlan> generate(@PathVariable Long sessionId) {
-        return ResponseEntity.ok(service.generatePlan(sessionId));
+        return ResponseEntity.status(201).body(service.generatePlan(sessionId));
     }
 
     @GetMapping("/{id}")
@@ -29,7 +29,7 @@ public class SeatingPlanController {
         return ResponseEntity.ok(service.getPlan(id));
     }
 
-    // 🔥 IMPORTANT FIX HERE
+   
     @GetMapping("/session/{sessionId}")
     public ResponseEntity<List<SeatingPlan>> list(@PathVariable Long sessionId) {
         return ResponseEntity.ok(service.getPlansBySession(sessionId));

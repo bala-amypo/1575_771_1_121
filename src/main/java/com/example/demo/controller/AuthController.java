@@ -24,12 +24,12 @@ public class AuthController {
     private JwtTokenProvider jwt;
     private PasswordEncoder encoder;
 
-    // 🔹 REQUIRED FOR test01_simulated_application_start
+    
     public AuthController() {
         this.encoder = new BCryptPasswordEncoder();
     }
 
-    // 🔹 REQUIRED BY TEST SUITE (DO NOT TOUCH)
+    
     public AuthController(UserService userService,
                           AuthenticationManager ignored,
                           JwtTokenProvider jwt,
@@ -39,7 +39,7 @@ public class AuthController {
         this.encoder = new BCryptPasswordEncoder();
     }
 
-    // 🔹 USED BY REAL SPRING APPLICATION
+    
     @Autowired
     public AuthController(UserService userService,
                           JwtTokenProvider jwt,
@@ -49,7 +49,7 @@ public class AuthController {
         this.encoder = encoder;
     }
 
-    // ===================== ENDPOINTS =====================
+   
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest r) {
@@ -61,7 +61,7 @@ public class AuthController {
                 .role(r.getRole())
                 .build();
 
-        return ResponseEntity.ok(userService.register(user));
+        return ResponseEntity.status(201).body(userService.register(user));
     }
 
     @PostMapping("/login")
@@ -79,6 +79,6 @@ public class AuthController {
                 user.getRole()
         );
 
-        return ResponseEntity.ok(new AuthResponse(token));
+        return ResponseEntity.status(201).body(new AuthResponse(token));
     }
 }
