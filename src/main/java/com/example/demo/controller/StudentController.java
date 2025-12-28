@@ -21,10 +21,10 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<Student> add(@RequestBody Student student) {
-        return ResponseEntity.ok(service.addStudent(student));
+        return ResponseEntity.status(201).body(service.addStudent(student));
     }
 
-    // 🔥 IMPORTANT FIX HERE
+    
     @GetMapping
     public ResponseEntity<List<Student>> list() {
         return ResponseEntity.ok(service.getAllStudents());
